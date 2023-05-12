@@ -30,7 +30,6 @@ public class OrdemServicoResource {
 	@Autowired
 	private OrdemServicoService ordemservicoService;
 
-
 	@PostMapping
 	public ResponseEntity<OrdemServico> criar(@Validated @RequestBody OrdemServico ordemservico, HttpServletResponse response) {
 		 OrdemServico ordemservicoSalva = ordemservicoService.salvar(ordemservico);

@@ -1,22 +1,26 @@
 package com.betonflex.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Temporal;
+import java.util.Date;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
-@Table(name = "administrativo.almoxarifado") 
+@Table(name = "almoxarifado",schema="public") 
 public class Almoxarifado implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "almoxarifado_id")
 	private Long almoxarifadoId;
 
@@ -27,8 +31,9 @@ public class Almoxarifado implements Serializable{
 	private String almoxarifadoDescricao;
 
 	@Column(name = "almoxarifado_ativo")
-	private Integer almoxarifadoAtivo;
+	private Boolean almoxarifadoAtivo;
 
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "almoxarifado_createat")
 	private Date almoxarifadoCreateat;
@@ -57,11 +62,11 @@ public class Almoxarifado implements Serializable{
 		this.almoxarifadoDescricao = almoxarifadoDescricao;
 	}
 	 
-	public Integer getAlmoxarifadoAtivo() {
+	public Boolean getAlmoxarifadoAtivo() {
 		return almoxarifadoAtivo;
 	}
 	 
-	public void setAlmoxarifadoAtivo(Integer almoxarifadoAtivo) {
+	public void setAlmoxarifadoAtivo(Boolean almoxarifadoAtivo) {
 		this.almoxarifadoAtivo = almoxarifadoAtivo;
 	}
 	 

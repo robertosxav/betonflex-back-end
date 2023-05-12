@@ -30,7 +30,6 @@ public class TipoServicoResource {
 	@Autowired
 	private TipoServicoService tiposervicoService;
 
-
 	@PostMapping
 	public ResponseEntity<TipoServico> criar(@Validated @RequestBody TipoServico tiposervico, HttpServletResponse response) {
 		 TipoServico tiposervicoSalva = tiposervicoService.salvar(tiposervico);

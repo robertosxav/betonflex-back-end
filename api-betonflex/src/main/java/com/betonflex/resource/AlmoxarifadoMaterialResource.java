@@ -30,7 +30,6 @@ public class AlmoxarifadoMaterialResource {
 	@Autowired
 	private AlmoxarifadoMaterialService almoxarifadomaterialService;
 
-
 	@PostMapping
 	public ResponseEntity<AlmoxarifadoMaterial> criar(@Validated @RequestBody AlmoxarifadoMaterial almoxarifadomaterial, HttpServletResponse response) {
 		 AlmoxarifadoMaterial almoxarifadomaterialSalva = almoxarifadomaterialService.salvar(almoxarifadomaterial);

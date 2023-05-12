@@ -9,17 +9,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Table(name = "administrativo.ordem_servico_cliente") 
+@Table(name = "ordem_servico_cliente",schema="public") 
 public class OrdemServicoCliente implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ordem_servico_cliente_id")
 	private Long ordemServicoClienteId;
 
 	@Column(name = "cliente_id")
-	private String clienteId;
+	private Integer clienteId;
 
 	public Long getOrdemServicoClienteId() {
 		return ordemServicoClienteId;
@@ -29,11 +30,11 @@ public class OrdemServicoCliente implements Serializable{
 		this.ordemServicoClienteId = ordemServicoClienteId;
 	}
 	 
-	public String getClienteId() {
+	public Integer getClienteId() {
 		return clienteId;
 	}
 	 
-	public void setClienteId(String clienteId) {
+	public void setClienteId(Integer clienteId) {
 		this.clienteId = clienteId;
 	}
 	 

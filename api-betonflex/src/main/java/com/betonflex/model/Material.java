@@ -1,22 +1,24 @@
 package com.betonflex.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Temporal;
+import java.util.Date;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "administrativo.material") 
+@Table(name = "material",schema="public") 
 public class Material implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "material_id")
 	private Long materialId;
 

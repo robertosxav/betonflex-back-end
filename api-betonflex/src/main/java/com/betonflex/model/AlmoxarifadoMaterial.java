@@ -1,27 +1,29 @@
 package com.betonflex.model;
 
 import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "administrativo.almoxarifado_material") 
+@Table(name = "almoxarifado_material",schema="public") 
 public class AlmoxarifadoMaterial implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "almoxarifado_material_id")
 	private Long almoxarifadoMaterialId;
 
 	@Column(name = "almoxarifado_id")
-	private String almoxarifadoId;
+	private Integer almoxarifadoId;
 
 	@Column(name = "material_id")
-	private String materialId;
+	private Integer materialId;
 
 	public Long getAlmoxarifadoMaterialId() {
 		return almoxarifadoMaterialId;
@@ -31,19 +33,19 @@ public class AlmoxarifadoMaterial implements Serializable{
 		this.almoxarifadoMaterialId = almoxarifadoMaterialId;
 	}
 	 
-	public String getAlmoxarifadoId() {
+	public Integer getAlmoxarifadoId() {
 		return almoxarifadoId;
 	}
 	 
-	public void setAlmoxarifadoId(String almoxarifadoId) {
+	public void setAlmoxarifadoId(Integer almoxarifadoId) {
 		this.almoxarifadoId = almoxarifadoId;
 	}
 	 
-	public String getMaterialId() {
+	public Integer getMaterialId() {
 		return materialId;
 	}
 	 
-	public void setMaterialId(String materialId) {
+	public void setMaterialId(Integer materialId) {
 		this.materialId = materialId;
 	}
 	 
