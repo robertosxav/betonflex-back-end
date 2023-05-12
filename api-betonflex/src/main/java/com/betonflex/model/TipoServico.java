@@ -11,7 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "administrativo.tipo_servico") 
+@Table(name = "tipo_servico",schema = "administrativo") 
 public class TipoServico implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;

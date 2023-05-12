@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "administrativo.ordem_servico") 
+@Table(name = "ordem_servico",schema = "administrativo") 
 public class OrdemServico implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;
