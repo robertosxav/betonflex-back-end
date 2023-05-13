@@ -1,15 +1,18 @@
 package com.betonflex.model;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.time.LocalDate;
+import java.util.Objects;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import java.util.Date;
-import javax.persistence.TemporalType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "cliente",schema="public") 
@@ -18,7 +21,8 @@ public class Cliente implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQUENCE_CLIENTE")
+	@SequenceGenerator(name = "SEQUENCE_CLIENTE",sequenceName = "public.cliente_id",allocationSize = 1)
 	@Column(name = "cliente_id")
 	private Long clienteId;
 
@@ -28,9 +32,9 @@ public class Cliente implements Serializable{
 	@Column(name = "cliente_documento")
 	private String clienteDocumento;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "cliente_createat")
-	private Date clienteCreateat;
+	private LocalDate clienteCreateat;
 
 	public Long getClienteId() {
 		return clienteId;
@@ -56,13 +60,31 @@ public class Cliente implements Serializable{
 		this.clienteDocumento = clienteDocumento;
 	}
 	 
-	public Date getClienteCreateat() {
+	public LocalDate getClienteCreateat() {
 		return clienteCreateat;
 	}
-	 
-	public void setClienteCreateat(Date clienteCreateat) {
-		this.clienteCreateat = clienteCreateat;
-	}
-	 
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(clienteId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		return Objects.equals(clienteId, other.clienteId);
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente [clienteId=" + clienteId + ", clienteNome=" + clienteNome + ", clienteDocumento="
+				+ clienteDocumento + ", clienteCreateat=" + clienteCreateat + "]";
+	}
+	
 } 

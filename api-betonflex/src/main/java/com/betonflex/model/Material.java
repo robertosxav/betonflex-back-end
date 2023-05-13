@@ -1,15 +1,18 @@
 package com.betonflex.model;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.time.LocalDate;
+import java.util.Objects;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import java.util.Date;
-import javax.persistence.TemporalType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "material",schema="public") 
@@ -18,7 +21,8 @@ public class Material implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQUENCE_MATERIAL")
+	@SequenceGenerator(name = "SEQUENCE_MATERIAL",sequenceName = "public.material_id",allocationSize = 1)
 	@Column(name = "material_id")
 	private Long materialId;
 
@@ -35,11 +39,11 @@ public class Material implements Serializable{
 	private String materialSku;
 
 	@Column(name = "material_ativo")
-	private Integer materialAtivo;
+	private Boolean materialAtivo;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "dd/MM/yyy")
 	@Column(name = "material_createat")
-	private Date materialCreateat;
+	private LocalDate materialCreateat;
 
 	public Long getMaterialId() {
 		return materialId;
@@ -80,22 +84,46 @@ public class Material implements Serializable{
 	public void setMaterialSku(String materialSku) {
 		this.materialSku = materialSku;
 	}
-	 
-	public Integer getMaterialAtivo() {
+
+	public Boolean getMaterialAtivo() {
 		return materialAtivo;
 	}
-	 
-	public void setMaterialAtivo(Integer materialAtivo) {
-		this.materialAtivo = materialAtivo;
-	}
-	 
-	public Date getMaterialCreateat() {
+
+
+	public LocalDate getMaterialCreateat() {
 		return materialCreateat;
 	}
-	 
-	public void setMaterialCreateat(Date materialCreateat) {
-		this.materialCreateat = materialCreateat;
-	}
-	 
 
+	public void ativar() {
+		this.materialAtivo = true;
+		this.materialCreateat = LocalDate.now();
+	}
+	
+	public void inativar() {
+		this.materialAtivo = false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(materialId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Material other = (Material) obj;
+		return Objects.equals(materialId, other.materialId);
+	}
+
+	@Override
+	public String toString() {
+		return "Material [materialId=" + materialId + ", materialNome=" + materialNome + ", materialDescricao="
+				+ materialDescricao + ", materialObservacao=" + materialObservacao + ", materialSku=" + materialSku
+				+ ", materialAtivo=" + materialAtivo + ", materialCreateat=" + materialCreateat + "]";
+	}
 } 

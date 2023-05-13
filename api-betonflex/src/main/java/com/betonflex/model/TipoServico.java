@@ -1,15 +1,18 @@
 package com.betonflex.model;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.time.LocalDate;
+import java.util.Objects;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import java.util.Date;
-import javax.persistence.TemporalType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "tipo_servico",schema="public") 
@@ -18,7 +21,8 @@ public class TipoServico implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQUENCE_TIPO_SERVICO")
+	@SequenceGenerator(name = "SEQUENCE_TIPO_SERVICO",sequenceName = "public.tipo_servico_id",allocationSize = 1)
 	@Column(name = "tipo_servico_id")
 	private Long tipoServicoId;
 
@@ -29,11 +33,11 @@ public class TipoServico implements Serializable{
 	private String tipoServicoDescricao;
 
 	@Column(name = "tipo_servico_ativo")
-	private Integer tipoServicoAtivo;
+	private Boolean tipoServicoAtivo;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "dd/MM/yyy")
 	@Column(name = "tipo_servico_createat")
-	private Date tipoServicoCreateat;
+	private LocalDate tipoServicoCreateat;
 
 	public Long getTipoServicoId() {
 		return tipoServicoId;
@@ -59,21 +63,45 @@ public class TipoServico implements Serializable{
 		this.tipoServicoDescricao = tipoServicoDescricao;
 	}
 	 
-	public Integer getTipoServicoAtivo() {
+	public Boolean getTipoServicoAtivo() {
 		return tipoServicoAtivo;
 	}
 	 
-	public void setTipoServicoAtivo(Integer tipoServicoAtivo) {
-		this.tipoServicoAtivo = tipoServicoAtivo;
-	}
-	 
-	public Date getTipoServicoCreateat() {
+	public LocalDate getTipoServicoCreateat() {
 		return tipoServicoCreateat;
 	}
-	 
-	public void setTipoServicoCreateat(Date tipoServicoCreateat) {
-		this.tipoServicoCreateat = tipoServicoCreateat;
+	
+	public void ativar() {
+		this.tipoServicoAtivo = true;
+		this.tipoServicoCreateat = LocalDate.now();
 	}
-	 
+	
+	public void inativar() {
+		this.tipoServicoAtivo = false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(tipoServicoId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TipoServico other = (TipoServico) obj;
+		return Objects.equals(tipoServicoId, other.tipoServicoId);
+	}
+
+	@Override
+	public String toString() {
+		return "TipoServico [tipoServicoId=" + tipoServicoId + ", tipoServicoNome=" + tipoServicoNome
+				+ ", tipoServicoDescricao=" + tipoServicoDescricao + ", tipoServicoAtivo=" + tipoServicoAtivo
+				+ ", tipoServicoCreateat=" + tipoServicoCreateat + "]";
+	}
 
 } 
