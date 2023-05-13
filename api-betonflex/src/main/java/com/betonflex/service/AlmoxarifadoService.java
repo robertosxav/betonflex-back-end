@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.betonflex.exceptions.BetonflexException;
 import com.betonflex.model.Almoxarifado;
 import com.betonflex.repository.AlmoxarifadoRepository;
 
@@ -19,20 +19,21 @@ public class AlmoxarifadoService {
 	private AlmoxarifadoRepository almoxarifadoRepository;
 
 	public Almoxarifado salvar(Almoxarifado almoxarifado) {
+		almoxarifado.ativar();
 		return almoxarifadoRepository.save(almoxarifado);
 	}
 
 	public Almoxarifado buscarPeloCodigo(Long codigo) {
-		Almoxarifado almoxarifadoSalva = almoxarifadoRepository.findById(codigo).get();
-		if (almoxarifadoSalva == null) {
-		throw new EmptyResultDataAccessException(1);
-			}
+		Almoxarifado almoxarifadoSalva = almoxarifadoRepository
+				.findById(codigo)
+				.orElseThrow(()-> new BetonflexException("Id não encontrado"));
+		
 		return almoxarifadoSalva;
 	}
 
 	public Almoxarifado atualizar(Long codigo, Almoxarifado almoxarifado) {
 		Almoxarifado almoxarifadoSave = buscarPeloCodigo(codigo);
-		BeanUtils.copyProperties(almoxarifado, almoxarifadoSave, "almoxarifadoId");
+		BeanUtils.copyProperties(almoxarifado, almoxarifadoSave, "almoxarifadoId","almoxarifadoCreateat");
 		return almoxarifadoRepository.save(almoxarifadoSave);
 	}
 
@@ -43,9 +44,23 @@ public class AlmoxarifadoService {
 	public List<Almoxarifado> listarTodos() {
 		return almoxarifadoRepository.findAll();
 	}
-
-	public void remover(Long codigo) {
-		almoxarifadoRepository.deleteById(codigo);
+	
+	public List<Almoxarifado> listarTodosAtivos() {
+		return almoxarifadoRepository.listarTodosAtivos();
+	}
+	
+	public Page<Almoxarifado> listarTodosAtivos(Pageable pageable) {
+		return almoxarifadoRepository.listarTodosAtivos(pageable);
 	}
 
+	public void remover(Long codigo) {
+		Almoxarifado almoxarifadoSave = buscarPeloCodigo(codigo);
+		almoxarifadoSave.inativar();
+		almoxarifadoRepository.save(almoxarifadoSave);
+	}
+
+	public Page<Almoxarifado> buscaGenerica(String pesquisa, Pageable pageable) {
+		almoxarifadoRepository.buscaGenerica(pesquisa.toUpperCase(),pageable);
+		return null;
+	}
 }

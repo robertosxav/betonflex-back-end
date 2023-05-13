@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.betonflex.exceptions.BetonflexException;
 import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.repository.AlmoxarifadoMaterialRepository;
 
@@ -23,10 +23,10 @@ public class AlmoxarifadoMaterialService {
 	}
 
 	public AlmoxarifadoMaterial buscarPeloCodigo(Long codigo) {
-		AlmoxarifadoMaterial almoxarifadomaterialSalva = almoxarifadomaterialRepository.findById(codigo).get();
-		if (almoxarifadomaterialSalva == null) {
-		throw new EmptyResultDataAccessException(1);
-			}
+		AlmoxarifadoMaterial almoxarifadomaterialSalva = almoxarifadomaterialRepository
+				.findById(codigo)
+				.orElseThrow(()->new BetonflexException("Id não encontrado"));
+		
 		return almoxarifadomaterialSalva;
 	}
 
@@ -45,7 +45,7 @@ public class AlmoxarifadoMaterialService {
 	}
 
 	public void remover(Long codigo) {
-		almoxarifadomaterialRepository.deleteById(codigo);
+		//AlmoxarifadoMaterial almoxarifadomaterialSave = buscarPeloCodigo(codigo);
 	}
 
 }

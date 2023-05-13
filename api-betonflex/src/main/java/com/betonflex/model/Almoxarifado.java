@@ -1,15 +1,16 @@
 package com.betonflex.model;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.time.LocalDate;
+import java.util.Objects;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import java.util.Date;
-import javax.persistence.TemporalType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,9 +19,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Almoxarifado implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQUENCE_ALMOXARIFADO")
+	@SequenceGenerator(name = "SEQUENCE_ALMOXARIFADO",sequenceName = "public.almoxarifado_id",allocationSize = 1)
 	@Column(name = "almoxarifado_id")
 	private Long almoxarifadoId;
 
@@ -34,9 +36,8 @@ public class Almoxarifado implements Serializable{
 	private Boolean almoxarifadoAtivo;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "almoxarifado_createat")
-	private Date almoxarifadoCreateat;
+	private LocalDate almoxarifadoCreateat;
 
 	public Long getAlmoxarifadoId() {
 		return almoxarifadoId;
@@ -66,17 +67,44 @@ public class Almoxarifado implements Serializable{
 		return almoxarifadoAtivo;
 	}
 	 
-	public void setAlmoxarifadoAtivo(Boolean almoxarifadoAtivo) {
-		this.almoxarifadoAtivo = almoxarifadoAtivo;
-	}
 	 
-	public Date getAlmoxarifadoCreateat() {
+	public LocalDate getAlmoxarifadoCreateat() {
 		return almoxarifadoCreateat;
 	}
 	 
-	public void setAlmoxarifadoCreateat(Date almoxarifadoCreateat) {
-		this.almoxarifadoCreateat = almoxarifadoCreateat;
+	
+	public void ativar() {
+		this.almoxarifadoAtivo = true;
+		this.almoxarifadoCreateat = LocalDate.now();
 	}
-	 
+	
+	public void inativar() {
+		this.almoxarifadoAtivo = false;
+	}
 
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(almoxarifadoId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Almoxarifado other = (Almoxarifado) obj;
+		return Objects.equals(almoxarifadoId, other.almoxarifadoId);
+	}
+
+	@Override
+	public String toString() {
+		return "Almoxarifado [almoxarifadoId=" + almoxarifadoId + ", almoxarifadoNome=" + almoxarifadoNome
+				+ ", almoxarifadoDescricao=" + almoxarifadoDescricao + ", almoxarifadoAtivo=" + almoxarifadoAtivo
+				+ ", almoxarifadoCreateat=" + almoxarifadoCreateat + "]";
+	}	 
+	
 } 

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.betonflex.model.Almoxarifado;
@@ -57,11 +57,25 @@ public class AlmoxarifadoResource {
 	public List<Almoxarifado> pesquisar() {
 		return almoxarifadoService.listarTodos();
 	}
-
-	@DeleteMapping("/{codigo}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long codigo) {
-		almoxarifadoService.remover(codigo);
+	
+	@GetMapping("/ativos")
+	public List<Almoxarifado> listarTodosAtivos() {
+		return almoxarifadoService.listarTodosAtivos();
+	}
+	
+	@GetMapping("/ativos/paginado")
+	public Page<Almoxarifado> listarTodosAtivo(Pageable pageable) {
+		return almoxarifadoService.listarTodosAtivos(pageable);
+	}
+	
+	@GetMapping("/buscanegenerica")
+	public Page<Almoxarifado> buscaGenerica(@RequestParam String pesquisa, Pageable pageable) {
+		return almoxarifadoService.buscaGenerica(pesquisa, pageable);
 	}
 
+	@DeleteMapping("/{codigo}")
+	public ResponseEntity<String> remover(@PathVariable Long codigo) {
+		almoxarifadoService.remover(codigo);
+		return ResponseEntity.status(HttpStatus.OK).body("Registro deletado com sucesso");
+	}
 }
