@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.betonflex.exceptions.BetonflexException;
 import com.betonflex.model.OrdemServico;
+import com.betonflex.model.TipoServico;
 import com.betonflex.repository.OrdemServicoRepository;
 
 @Service
@@ -17,16 +18,28 @@ public class OrdemServicoService {
 
 	@Autowired
 	private OrdemServicoRepository ordemservicoRepository;
+	
+	@Autowired
+	private TipoServicoService tipoServicoService;
 
 	public OrdemServico salvar(OrdemServico ordemservico) {
+		validar(ordemservico);
+		ordemservico.ativar();
 		return ordemservicoRepository.save(ordemservico);
 	}
 
+	private void validar(OrdemServico ordemservico) {
+		TipoServico tipoServico = tipoServicoService
+				.buscarPeloCodigo(ordemservico.getTipoServico().getTipoServicoId());
+		
+		ordemservico.setTipoServico(tipoServico);
+	}
+
 	public OrdemServico buscarPeloCodigo(Long codigo) {
-		OrdemServico ordemservicoSalva = ordemservicoRepository.findById(codigo).get();
-		if (ordemservicoSalva == null) {
-		throw new EmptyResultDataAccessException(1);
-			}
+		OrdemServico ordemservicoSalva = ordemservicoRepository
+				.findById(codigo)
+				.orElseThrow(()-> new BetonflexException("Id não encontrado"));
+		
 		return ordemservicoSalva;
 	}
 
@@ -44,8 +57,13 @@ public class OrdemServicoService {
 		return ordemservicoRepository.findAll();
 	}
 
-	public void remover(Long codigo) {
-		ordemservicoRepository.deleteById(codigo);
+
+	public Page<OrdemServico> buscaGenerica(String pesquisa, Pageable pageable) {
+		return ordemservicoRepository.buscaGenerica(pesquisa.toUpperCase(),pageable);
+	}
+
+	public Page<OrdemServico> buscaTipoServico(Long tipoServicoId, Pageable pageable) {
+		return ordemservicoRepository.findByTipoServicoTipoServicoId(tipoServicoId,pageable);
 	}
 
 }

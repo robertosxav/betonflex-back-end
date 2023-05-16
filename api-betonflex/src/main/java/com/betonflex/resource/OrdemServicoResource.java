@@ -10,14 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.betonflex.model.OrdemServico;
@@ -39,7 +38,7 @@ public class OrdemServicoResource {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<OrdemServico> buscarPeloCodigo(@PathVariable Long codigo) {
 		OrdemServico ordemservico = ordemservicoService.buscarPeloCodigo(codigo);
-		return ordemservico != null ? ResponseEntity.ok(ordemservico) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(ordemservico);
 	}
 
 	@PutMapping("/{codigo}")
@@ -58,10 +57,13 @@ public class OrdemServicoResource {
 		return ordemservicoService.listarTodos();
 	}
 
-	@DeleteMapping("/{codigo}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long codigo) {
-		ordemservicoService.remover(codigo);
+	@GetMapping("/buscanegenerica")
+	public Page<OrdemServico> buscaGenerica(@RequestParam String pesquisa, Pageable pageable) {
+		return ordemservicoService.buscaGenerica(pesquisa, pageable);
 	}
-
+	
+	@GetMapping("/buscatiposervico/{tipoServicoId}")
+	public Page<OrdemServico> buscaTipoServico(@PathVariable Long tipoServicoId, Pageable pageable) {
+		return ordemservicoService.buscaTipoServico(tipoServicoId, pageable);
+	}
 }
