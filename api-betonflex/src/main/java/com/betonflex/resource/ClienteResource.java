@@ -10,13 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.betonflex.model.Cliente;
@@ -31,14 +31,14 @@ public class ClienteResource {
 
 	@PostMapping
 	public ResponseEntity<Cliente> criar(@Validated @RequestBody Cliente cliente, HttpServletResponse response) {
-		 Cliente clienteSalva = clienteService.salvar(cliente);
+		Cliente clienteSalva = clienteService.salvar(cliente);
 		return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalva);
 	}
 
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Cliente> buscarPeloCodigo(@PathVariable Long codigo) {
 		Cliente cliente = clienteService.buscarPeloCodigo(codigo);
-		return cliente != null ? ResponseEntity.ok(cliente) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(cliente);
 	}
 
 	@PutMapping("/{codigo}")
@@ -56,10 +56,15 @@ public class ClienteResource {
 	public List<Cliente> pesquisar() {
 		return clienteService.listarTodos();
 	}
-
-	@DeleteMapping("/{codigo}")
+	
+	@GetMapping("/buscanegenerica")
+	public Page<Cliente> buscaGenerica(@RequestParam String pesquisa, Pageable pageable) {
+		return clienteService.buscaGenerica(pesquisa, pageable);
+	}
+	
+	/*@DeleteMapping("/{codigo}")
 	public void remover(@PathVariable Long codigo) {
 		clienteService.remover(codigo);
 	}
-
+*/
 }

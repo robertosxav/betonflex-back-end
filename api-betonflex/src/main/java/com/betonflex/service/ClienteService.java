@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.betonflex.exceptions.BetonflexException;
 import com.betonflex.model.Cliente;
 import com.betonflex.repository.ClienteRepository;
 
@@ -19,20 +19,21 @@ public class ClienteService {
 	private ClienteRepository clienteRepository;
 
 	public Cliente salvar(Cliente cliente) {
+		cliente.ativar();
 		return clienteRepository.save(cliente);
 	}
 
 	public Cliente buscarPeloCodigo(Long codigo) {
-		Cliente clienteSalva = clienteRepository.findById(codigo).get();
-		if (clienteSalva == null) {
-		throw new EmptyResultDataAccessException(1);
-			}
+		Cliente clienteSalva = clienteRepository
+				.findById(codigo)
+				.orElseThrow(()-> new BetonflexException("Id não encontrado"));
+
 		return clienteSalva;
 	}
 
 	public Cliente atualizar(Long codigo, Cliente cliente) {
 		Cliente clienteSave = buscarPeloCodigo(codigo);
-		BeanUtils.copyProperties(cliente, clienteSave, "clienteId");
+		BeanUtils.copyProperties(cliente, clienteSave, "clienteId","clienteCreateat");
 		return clienteRepository.save(clienteSave);
 	}
 
@@ -44,8 +45,8 @@ public class ClienteService {
 		return clienteRepository.findAll();
 	}
 
-	public void remover(Long codigo) {
-		clienteRepository.deleteById(codigo);
+	public Page<Cliente> buscaGenerica(String pesquisa, Pageable pageable) {
+		return clienteRepository.buscaGenerica(pesquisa,pageable);
 	}
 
 }

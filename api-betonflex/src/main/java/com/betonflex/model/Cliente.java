@@ -64,6 +64,10 @@ public class Cliente implements Serializable{
 		return clienteCreateat;
 	}
 
+	public void ativar() {
+		this.clienteCreateat = LocalDate.now();
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(clienteId);
