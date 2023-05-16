@@ -53,13 +53,13 @@ public class AlmoxarifadoService {
 		return almoxarifadoRepository.listarTodosAtivos(pageable);
 	}
 
+	public Page<Almoxarifado> buscaGenerica(String pesquisa, Pageable pageable) {
+		return almoxarifadoRepository.buscaGenerica(pesquisa.toUpperCase(),pageable);
+	}
+	
 	public void remover(Long codigo) {
 		Almoxarifado almoxarifadoSave = buscarPeloCodigo(codigo);
 		almoxarifadoSave.inativar();
 		almoxarifadoRepository.save(almoxarifadoSave);
-	}
-
-	public Page<Almoxarifado> buscaGenerica(String pesquisa, Pageable pageable) {
-		return almoxarifadoRepository.buscaGenerica(pesquisa.toUpperCase(),pageable);
 	}
 }

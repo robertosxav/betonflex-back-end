@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
-import com.betonflex.model.Almoxarifado;
 import com.betonflex.model.Material;
 import com.betonflex.repository.MaterialRepository;
 
@@ -47,7 +46,9 @@ public class MaterialService {
 	}
 
 	public void remover(Long codigo) {
-		materialRepository.deleteById(codigo);
+		Material materialSalvo = buscarPeloCodigo(codigo);
+		materialSalvo.inativar();
+		materialRepository.save(materialSalvo);
 	}
 
 	public List<Material> listarTodosAtivos() {

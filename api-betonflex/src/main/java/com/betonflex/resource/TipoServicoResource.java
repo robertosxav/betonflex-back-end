@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.betonflex.model.TipoServico;
@@ -39,7 +39,7 @@ public class TipoServicoResource {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<TipoServico> buscarPeloCodigo(@PathVariable Long codigo) {
 		TipoServico tiposervico = tiposervicoService.buscarPeloCodigo(codigo);
-		return tiposervico != null ? ResponseEntity.ok(tiposervico) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(tiposervico);
 	}
 
 	@PutMapping("/{codigo}")
@@ -57,11 +57,26 @@ public class TipoServicoResource {
 	public List<TipoServico> pesquisar() {
 		return tiposervicoService.listarTodos();
 	}
+	
+	@GetMapping("/ativos")
+	public List<TipoServico> listarTodosAtivos() {
+		return tiposervicoService.listarTodosAtivos();
+	}
+	
+	@GetMapping("/ativos/paginado")
+	public Page<TipoServico> listarTodosAtivo(Pageable pageable) {
+		return tiposervicoService.listarTodosAtivos(pageable);
+	}
+	
+	@GetMapping("/buscanegenerica")
+	public Page<TipoServico> buscaGenerica(@RequestParam String pesquisa, Pageable pageable) {
+		return tiposervicoService.buscaGenerica(pesquisa, pageable);
+	}
 
 	@DeleteMapping("/{codigo}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long codigo) {
+	public ResponseEntity<String> remover(@PathVariable Long codigo) {
 		tiposervicoService.remover(codigo);
+		return ResponseEntity.status(HttpStatus.OK).body("Registro deletado com sucesso");
 	}
 
 }
