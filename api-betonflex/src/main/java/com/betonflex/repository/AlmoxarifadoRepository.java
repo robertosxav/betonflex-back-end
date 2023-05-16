@@ -21,7 +21,7 @@ public interface AlmoxarifadoRepository extends JpaRepository<Almoxarifado, Long
 
 	@Query("SELECT a from Almoxarifado a "
 			+ "where a.almoxarifadoAtivo = true "
-			+ "and a.almoxarifadoNome like concat('%',:pesquisa,'%')")
+			+ "and UPPER(a.almoxarifadoNome) like concat('%',:pesquisa,'%')")
 	Page<Almoxarifado> buscaGenerica(String pesquisa, Pageable pageable); 
 	
 } 

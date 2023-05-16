@@ -26,23 +26,23 @@ public class Material implements Serializable{
 	@Column(name = "material_id")
 	private Long materialId;
 
-	@Column(name = "material_nome")
+	@Column(name = "material_nome",nullable = false)
 	private String materialNome;
 
-	@Column(name = "material_descricao")
+	@Column(name = "material_descricao",nullable = false)
 	private String materialDescricao;
 
-	@Column(name = "material_observacao")
+	@Column(name = "material_observacao",nullable = false)
 	private String materialObservacao;
 
-	@Column(name = "material_sku")
+	@Column(name = "material_sku",nullable = false)
 	private String materialSku;
 
-	@Column(name = "material_ativo")
+	@Column(name = "material_ativo",nullable = false)
 	private Boolean materialAtivo;
 
 	@JsonFormat(pattern = "dd/MM/yyy")
-	@Column(name = "material_createat")
+	@Column(name = "material_createat",nullable = false)
 	private LocalDate materialCreateat;
 
 	public Long getMaterialId() {

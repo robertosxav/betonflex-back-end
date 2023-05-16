@@ -60,7 +60,6 @@ public class AlmoxarifadoService {
 	}
 
 	public Page<Almoxarifado> buscaGenerica(String pesquisa, Pageable pageable) {
-		almoxarifadoRepository.buscaGenerica(pesquisa.toUpperCase(),pageable);
-		return null;
+		return almoxarifadoRepository.buscaGenerica(pesquisa.toUpperCase(),pageable);
 	}
 }

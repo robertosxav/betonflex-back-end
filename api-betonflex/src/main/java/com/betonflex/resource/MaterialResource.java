@@ -17,14 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.betonflex.model.Almoxarifado;
 import com.betonflex.model.Material;
 import com.betonflex.service.MaterialService;
 
 @RestController
-@RequestMapping("/materials")
+@RequestMapping("/materiais")
 public class MaterialResource {
 
 	@Autowired
@@ -32,14 +33,14 @@ public class MaterialResource {
 
 	@PostMapping
 	public ResponseEntity<Material> criar(@Validated @RequestBody Material material, HttpServletResponse response) {
-		 Material materialSalva = materialService.salvar(material);
+	    Material materialSalva = materialService.salvar(material);
 		return ResponseEntity.status(HttpStatus.CREATED).body(materialSalva);
 	}
 
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Material> buscarPeloCodigo(@PathVariable Long codigo) {
 		Material material = materialService.buscarPeloCodigo(codigo);
-		return material != null ? ResponseEntity.ok(material) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(material);
 	}
 
 	@PutMapping("/{codigo}")
@@ -59,9 +60,23 @@ public class MaterialResource {
 	}
 
 	@DeleteMapping("/{codigo}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long codigo) {
+	public ResponseEntity<String> remover(@PathVariable Long codigo) {
 		materialService.remover(codigo);
+		return ResponseEntity.status(HttpStatus.OK).body("Registro deletado com sucesso");
 	}
-
+	
+	@GetMapping("/ativos")
+	public List<Material> listarTodosAtivos() {
+		return materialService.listarTodosAtivos();
+	}
+	
+	@GetMapping("/ativos/paginado")
+	public Page<Material> listarTodosAtivo(Pageable pageable) {
+		return materialService.listarTodosAtivos(pageable);
+	}
+	
+	@GetMapping("/buscanegenerica")
+	public Page<Material> buscaGenerica(@RequestParam String pesquisa, Pageable pageable) {
+		return materialService.buscaGenerica(pesquisa, pageable);
+	}
 }

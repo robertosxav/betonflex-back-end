@@ -39,7 +39,7 @@ public class AlmoxarifadoResource {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Almoxarifado> buscarPeloCodigo(@PathVariable Long codigo) {
 		Almoxarifado almoxarifado = almoxarifadoService.buscarPeloCodigo(codigo);
-		return almoxarifado != null ? ResponseEntity.ok(almoxarifado) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(almoxarifado);
 	}
 
 	@PutMapping("/{codigo}")
