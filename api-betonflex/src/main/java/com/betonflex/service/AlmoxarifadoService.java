@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
 import com.betonflex.model.Almoxarifado;
+import com.betonflex.model.Material;
 import com.betonflex.repository.AlmoxarifadoRepository;
 
 @Service
@@ -60,6 +61,12 @@ public class AlmoxarifadoService {
 	public void remover(Long codigo) {
 		Almoxarifado almoxarifadoSave = buscarPeloCodigo(codigo);
 		almoxarifadoSave.inativar();
+		almoxarifadoRepository.save(almoxarifadoSave);
+	}
+
+	public void adicionarMateriais(Long codigo, List<Material> listaMateriais) {
+		Almoxarifado almoxarifadoSave = buscarPeloCodigo(codigo);		
+		almoxarifadoSave.setListaMateriais(listaMateriais);
 		almoxarifadoRepository.save(almoxarifadoSave);
 	}
 }

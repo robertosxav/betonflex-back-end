@@ -3,6 +3,7 @@ package com.betonflex.model;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,11 +22,13 @@ public class AlmoxarifadoMaterial implements Serializable{
 	@Column(name = "almoxarifado_material_id")
 	private Long almoxarifadoMaterialId;
 
-	@ManyToOne
+
+	@ManyToOne(cascade = CascadeType.ALL)  
 	@JoinColumn(name = "almoxarifado_id")
 	private Almoxarifado almoxarifado;
 
-	@ManyToOne
+
+	@ManyToOne(cascade = CascadeType.ALL) 
 	@JoinColumn(name = "material_id")
 	private Material material;
 

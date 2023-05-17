@@ -2,8 +2,6 @@ package com.betonflex.resource;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.betonflex.model.Almoxarifado;
+import com.betonflex.model.Material;
 import com.betonflex.service.AlmoxarifadoService;
 
 import io.swagger.annotations.ApiOperation;
@@ -34,9 +33,16 @@ public class AlmoxarifadoResource {
 
 	@ApiOperation(value = "Criar um almoxarifado")
 	@PostMapping
-	public ResponseEntity<Almoxarifado> criar(@Validated @RequestBody Almoxarifado almoxarifado, HttpServletResponse response) {
+	public ResponseEntity<Almoxarifado> criar(@Validated @RequestBody Almoxarifado almoxarifado) {
 		 Almoxarifado almoxarifadoSalva = almoxarifadoService.salvar(almoxarifado);
 		return ResponseEntity.status(HttpStatus.CREATED).body(almoxarifadoSalva);
+	}
+	
+	@ApiOperation(value = "Adicionar materiais de um almoxarifado")
+	@PutMapping("/adicionarmateriais/{codigo}")
+	public ResponseEntity<String> adicionarMateriais(@PathVariable Long codigo, @RequestBody List<Material> listaMateriais) {
+		almoxarifadoService.adicionarMateriais(codigo,listaMateriais);
+		return ResponseEntity.status(HttpStatus.OK).body("Registro deletado com sucesso");
 	}
 
 	@ApiOperation(value = "Buscar um almoxarifado pelo código")

@@ -2,6 +2,7 @@ package com.betonflex.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,6 +42,10 @@ public class Almoxarifado implements Serializable{
 	@Column(name = "almoxarifado_createat")
 	private LocalDate almoxarifadoCreateat;
 
+	@OneToMany()
+	@JoinColumn(name ="material_id")
+	private List<Material> listaMateriais;
+	
 	public Long getAlmoxarifadoId() {
 		return almoxarifadoId;
 	}
@@ -71,8 +78,15 @@ public class Almoxarifado implements Serializable{
 	public LocalDate getAlmoxarifadoCreateat() {
 		return almoxarifadoCreateat;
 	}
-	 
 	
+	public List<Material> getListaMateriais() {
+		return listaMateriais;
+	}
+
+	public void setListaMateriais(List<Material> listaMateriais) {
+		this.listaMateriais = listaMateriais;
+	}
+
 	public void ativar() {
 		this.almoxarifadoAtivo = true;
 		this.almoxarifadoCreateat = LocalDate.now();
