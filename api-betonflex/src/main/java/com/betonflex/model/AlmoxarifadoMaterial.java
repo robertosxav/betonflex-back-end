@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "almoxarifado_material",schema="public") 
@@ -19,11 +21,13 @@ public class AlmoxarifadoMaterial implements Serializable{
 	@Column(name = "almoxarifado_material_id")
 	private Long almoxarifadoMaterialId;
 
-	@Column(name = "almoxarifado_id")
-	private Integer almoxarifadoId;
+	@ManyToOne
+	@JoinColumn(name = "almoxarifado_id")
+	private Almoxarifado almoxarifado;
 
-	@Column(name = "material_id")
-	private Integer materialId;
+	@ManyToOne
+	@JoinColumn(name = "material_id")
+	private Material material;
 
 	public Long getAlmoxarifadoMaterialId() {
 		return almoxarifadoMaterialId;
@@ -32,22 +36,21 @@ public class AlmoxarifadoMaterial implements Serializable{
 	public void setAlmoxarifadoMaterialId(Long almoxarifadoMaterialId) {
 		this.almoxarifadoMaterialId = almoxarifadoMaterialId;
 	}
-	 
-	public Integer getAlmoxarifadoId() {
-		return almoxarifadoId;
-	}
-	 
-	public void setAlmoxarifadoId(Integer almoxarifadoId) {
-		this.almoxarifadoId = almoxarifadoId;
-	}
-	 
-	public Integer getMaterialId() {
-		return materialId;
-	}
-	 
-	public void setMaterialId(Integer materialId) {
-		this.materialId = materialId;
-	}
-	 
 
+	public Almoxarifado getAlmoxarifado() {
+		return almoxarifado;
+	}
+
+	public void setAlmoxarifado(Almoxarifado almoxarifado) {
+		this.almoxarifado = almoxarifado;
+	}
+
+	public Material getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
+	 
 } 

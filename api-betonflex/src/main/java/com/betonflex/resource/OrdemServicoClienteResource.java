@@ -23,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.OrdemServicoCliente;
 import com.betonflex.service.OrdemServicoClienteService;
 
+import springfox.documentation.annotations.ApiIgnore;
+
+@ApiIgnore
 @RestController
 @RequestMapping("/ordemservicoclientes")
 public class OrdemServicoClienteResource {

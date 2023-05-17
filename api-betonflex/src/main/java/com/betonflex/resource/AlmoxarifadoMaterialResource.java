@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.service.AlmoxarifadoMaterialService;
 
+import springfox.documentation.annotations.ApiIgnore;
+@ApiIgnore
 @RestController
 @RequestMapping("/almoxarifadomaterials")
 public class AlmoxarifadoMaterialResource {

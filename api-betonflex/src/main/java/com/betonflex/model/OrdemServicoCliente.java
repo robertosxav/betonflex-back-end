@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "ordem_servico_cliente",schema="public") 
@@ -19,8 +21,9 @@ public class OrdemServicoCliente implements Serializable{
 	@Column(name = "ordem_servico_cliente_id")
 	private Long ordemServicoClienteId;
 
-	@Column(name = "cliente_id")
-	private Integer clienteId;
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 
 	public Long getOrdemServicoClienteId() {
 		return ordemServicoClienteId;
@@ -30,12 +33,12 @@ public class OrdemServicoCliente implements Serializable{
 		this.ordemServicoClienteId = ordemServicoClienteId;
 	}
 	 
-	public Integer getClienteId() {
-		return clienteId;
+	public Cliente getCliente() {
+		return cliente;
 	}
 	 
-	public void setClienteId(Integer clienteId) {
-		this.clienteId = clienteId;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	 
 
