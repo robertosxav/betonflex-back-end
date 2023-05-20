@@ -25,8 +25,8 @@ public class AlmoxarifadoService {
 	@Autowired
 	private MaterialService materialService;
 	
-	@Autowired
-	private AlmoxarifadoMaterialService almoxarifadoMaterialService;
+	/*@Autowired
+	private AlmoxarifadoMaterialService almoxarifadoMaterialService;*/
 	
 	@Transactional
 	public Almoxarifado salvar(Almoxarifado almoxarifado) {
@@ -76,7 +76,7 @@ public class AlmoxarifadoService {
 
 	@Transactional
 	public void adicionarMateriais(Long codigo, List<Material> listaMateriais) {
-		Almoxarifado almoxarifadoSave = buscarPeloCodigo(codigo);		
+	/*	Almoxarifado almoxarifadoSave = buscarPeloCodigo(codigo);		
 		
 		//adicionarMateriais
 		for(Material material : listaMateriais) {
@@ -103,6 +103,6 @@ public class AlmoxarifadoService {
 			}
 		}
 		
-
+*/
 	}
 }

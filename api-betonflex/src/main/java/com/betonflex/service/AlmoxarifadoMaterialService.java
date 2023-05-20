@@ -8,7 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
+import com.betonflex.model.Almoxarifado;
 import com.betonflex.model.AlmoxarifadoMaterial;
+import com.betonflex.model.Material;
 import com.betonflex.repository.AlmoxarifadoMaterialRepository;
 
 @Service
@@ -16,6 +18,12 @@ public class AlmoxarifadoMaterialService{
 
 	@Autowired
 	private AlmoxarifadoMaterialRepository almoxarifadomaterialRepository;
+	
+	@Autowired
+	private AlmoxarifadoService almoxarifadoService;
+	
+	@Autowired
+	private MaterialService materialService;
 /*
 	public AlmoxarifadoMaterial atualizar(Long codigo, AlmoxarifadoMaterial almoxarifadomaterial) {
 		AlmoxarifadoMaterial almoxarifadomaterialSave = buscarPeloCodigo(codigo);
@@ -31,6 +39,12 @@ public class AlmoxarifadoMaterialService{
 		return almoxarifadomaterialRepository.findAll();
 	}*/
 	public AlmoxarifadoMaterial salvar(AlmoxarifadoMaterial almoxarifadomaterial) {
+		Material material = materialService.buscarPeloCodigo(almoxarifadomaterial.getMaterial().getMaterialId());
+		almoxarifadomaterial.setMaterial(material);
+		
+		Almoxarifado almoxarifado = almoxarifadoService.buscarPeloCodigo(almoxarifadomaterial.getAlmoxarifado().getAlmoxarifadoId());
+		almoxarifadomaterial.setAlmoxarifado(almoxarifado);
+		
 		return almoxarifadomaterialRepository.save(almoxarifadomaterial);
 	}
 
@@ -53,12 +67,13 @@ public class AlmoxarifadoMaterialService{
 		return almoxarifadomaterialRepository.buscarPeloAlmoxarifadoEMaterial(materialId,almoxarifadoId);
 				
 	}
-	
-	public List<AlmoxarifadoMaterial> buscarPeloAlmoxarifado(Long almoxarifadoId){
+
+	public List<AlmoxarifadoMaterial> buscarPeloAlmoxarifado(Long almoxarifadoId) {
 		return almoxarifadomaterialRepository.buscarPeloAlmoxarifado(almoxarifadoId);
 	}
 
-	public Page<AlmoxarifadoMaterial> buscarPeloAlmoxarifado(Long almoxarifadoId,Pageable pageable){
+	public Page<AlmoxarifadoMaterial> buscarPeloAlmoxarifado(Long almoxarifadoId, Pageable pageable) {
 		return almoxarifadomaterialRepository.buscarPeloAlmoxarifado(almoxarifadoId,pageable);
 	}
+
 }
