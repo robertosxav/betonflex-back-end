@@ -3,6 +3,8 @@ package com.betonflex.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
@@ -56,4 +58,7 @@ public class AlmoxarifadoMaterialService{
 		return almoxarifadomaterialRepository.buscarPeloAlmoxarifado(almoxarifadoId);
 	}
 
+	public Page<AlmoxarifadoMaterial> buscarPeloAlmoxarifado(Long almoxarifadoId,Pageable pageable){
+		return almoxarifadomaterialRepository.buscarPeloAlmoxarifado(almoxarifadoId,pageable);
+	}
 }

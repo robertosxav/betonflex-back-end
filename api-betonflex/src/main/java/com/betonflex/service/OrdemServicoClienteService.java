@@ -1,6 +1,8 @@
 package com.betonflex.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
@@ -45,6 +47,10 @@ public class OrdemServicoClienteService {
 
 	public OrdemServicoCliente buscarPeloCLienteEOrdemServico(Long clienteId, Long ordemServicoId) {
 		return ordemservicoclienteRepository.buscarPeloCLienteEOrdemServico(clienteId,ordemServicoId);
+	}
+	
+	public Page<OrdemServicoCliente> buscarPeloCiente(Long clienteId, Pageable pageable) {
+		return ordemservicoclienteRepository.buscarPeloCiente(clienteId,pageable);
 	}
 
 }

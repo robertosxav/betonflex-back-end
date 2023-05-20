@@ -66,4 +66,8 @@ public class MaterialService {
 		return materialRepository.listarTodosMateriasAlmoxarifado(almoxarifadoId, pageable);
 	}
 
+	public List<Material> listarTodosMateriasQueNaPertencemAlmoxarifado(Long almoxarifadoId) {
+		return materialRepository.listarTodosMateriasQueNaPertencemAlmoxarifado(almoxarifadoId);
+	}
+
 }

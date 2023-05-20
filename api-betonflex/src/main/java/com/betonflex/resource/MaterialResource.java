@@ -95,5 +95,11 @@ public class MaterialResource {
 	public Page<Material> listarTodosMateriasAlmoxarifado(@PathVariable Long almoxarifadoId, Pageable pageable) {
 		return materialService.listarTodosMateriasAlmoxarifado(almoxarifadoId, pageable);
 	}
+	
+	@ApiOperation(value = "Pesquisar materiais que não pertencem a  um almoxarifado")
+	@GetMapping("/matriaisout/almoxarifado/{almoxarifadoId}")
+	public List<Material> listarTodosMateriasQueNaPertencemAlmoxarifado(@PathVariable Long almoxarifadoId) {
+		return materialService.listarTodosMateriasQueNaPertencemAlmoxarifado(almoxarifadoId);
+	}
 
 }

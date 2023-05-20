@@ -1,5 +1,7 @@
 package com.betonflex.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,5 +14,10 @@ public interface OrdemServicoClienteRepository extends JpaRepository<OrdemServic
 			+ "WHERE osc.cliente.clienteId = :clienteId "
 			+ "and osc.ordemServico.ordemServicoId = :ordemServicoId")
 	OrdemServicoCliente buscarPeloCLienteEOrdemServico(Long clienteId, Long ordemServicoId); 
+	
+	
+	@Query("SELECT osc FROM OrdemServicoCliente osc "
+			+ "WHERE osc.cliente.clienteId = :clienteId ")
+	Page<OrdemServicoCliente> buscarPeloCiente(Long clienteId, Pageable pageable);
 	
 } 
