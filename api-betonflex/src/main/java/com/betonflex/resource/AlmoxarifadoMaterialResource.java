@@ -20,7 +20,7 @@ public class AlmoxarifadoMaterialResource {
 	@Autowired
 	private AlmoxarifadoMaterialService almoxarifadomaterialService;
 
-	@ApiOperation(value = "Excluir relacionamento entre ordem servico e cliente(exclusão fisica)")
+	@ApiOperation(value = "Excluir relacionamento entre material e almoxarifado(exclusão fisica)")
 	@DeleteMapping("/{codigo}")
 	public ResponseEntity<String> remover(@PathVariable Long codigo) {
 		almoxarifadomaterialService.remover(codigo);
