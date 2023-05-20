@@ -1,14 +1,9 @@
 package com.betonflex.service;
 
-import java.util.List;
-
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.betonflex.exceptions.BetonflexException;
 import com.betonflex.model.OrdemServicoCliente;
 import com.betonflex.repository.OrdemServicoClienteRepository;
 
@@ -23,13 +18,12 @@ public class OrdemServicoClienteService {
 	}
 
 	public OrdemServicoCliente buscarPeloCodigo(Long codigo) {
-		OrdemServicoCliente ordemservicoclienteSalva = ordemservicoclienteRepository.findById(codigo).get();
-		if (ordemservicoclienteSalva == null) {
-		throw new EmptyResultDataAccessException(1);
-			}
-		return ordemservicoclienteSalva;
+		return ordemservicoclienteRepository
+				.findById(codigo)
+				.orElseThrow(()-> new BetonflexException("Id não encontrado"));
+	
 	}
-
+/*
 	public OrdemServicoCliente atualizar(Long codigo, OrdemServicoCliente ordemservicocliente) {
 		OrdemServicoCliente ordemservicoclienteSave = buscarPeloCodigo(codigo);
 		BeanUtils.copyProperties(ordemservicocliente, ordemservicoclienteSave, "ordemServicoClienteId");
@@ -42,9 +36,10 @@ public class OrdemServicoClienteService {
 
 	public List<OrdemServicoCliente> listarTodos() {
 		return ordemservicoclienteRepository.findAll();
-	}
+	}*/
 
 	public void remover(Long codigo) {
+		buscarPeloCodigo(codigo);
 		ordemservicoclienteRepository.deleteById(codigo);
 	}
 

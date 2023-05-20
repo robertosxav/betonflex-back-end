@@ -2,10 +2,7 @@ package com.betonflex.service;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
@@ -17,19 +14,7 @@ public class AlmoxarifadoMaterialService{
 
 	@Autowired
 	private AlmoxarifadoMaterialRepository almoxarifadomaterialRepository;
-
-	public AlmoxarifadoMaterial salvar(AlmoxarifadoMaterial almoxarifadomaterial) {
-		return almoxarifadomaterialRepository.save(almoxarifadomaterial);
-	}
-
-	public AlmoxarifadoMaterial buscarPeloCodigo(Long codigo) {
-		AlmoxarifadoMaterial almoxarifadomaterialSalva = almoxarifadomaterialRepository
-				.findById(codigo)
-				.orElseThrow(()->new BetonflexException("Id não encontrado"));
-		
-		return almoxarifadomaterialSalva;
-	}
-
+/*
 	public AlmoxarifadoMaterial atualizar(Long codigo, AlmoxarifadoMaterial almoxarifadomaterial) {
 		AlmoxarifadoMaterial almoxarifadomaterialSave = buscarPeloCodigo(codigo);
 		BeanUtils.copyProperties(almoxarifadomaterial, almoxarifadomaterialSave, "almoxarifadoMaterialId");
@@ -42,10 +27,23 @@ public class AlmoxarifadoMaterialService{
 
 	public List<AlmoxarifadoMaterial> listarTodos() {
 		return almoxarifadomaterialRepository.findAll();
+	}*/
+	public AlmoxarifadoMaterial salvar(AlmoxarifadoMaterial almoxarifadomaterial) {
+		return almoxarifadomaterialRepository.save(almoxarifadomaterial);
+	}
+
+	
+	public AlmoxarifadoMaterial buscarPeloCodigo(Long codigo) {
+		
+		return almoxarifadomaterialRepository
+				.findById(codigo)
+				.orElseThrow(()-> new BetonflexException("Id não encontrado"));
+		
 	}
 
 	public void remover(Long codigo) {
-		//AlmoxarifadoMaterial almoxarifadomaterialSave = buscarPeloCodigo(codigo);
+		AlmoxarifadoMaterial almoxarifadomaterialSave = buscarPeloCodigo(codigo);
+		almoxarifadomaterialRepository.deleteById(codigo);
 	}
 	
 	

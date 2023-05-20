@@ -22,11 +22,11 @@ public class OrdemServicoCliente implements Serializable{
 	@Column(name = "ordem_servico_cliente_id")
 	private Long ordemServicoClienteId;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "ordem_servico_id")
 	private OrdemServico ordemServico;
 
