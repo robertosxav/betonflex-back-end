@@ -2,6 +2,8 @@ package com.betonflex.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
 import com.betonflex.model.Almoxarifado;
+import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.model.Material;
 import com.betonflex.repository.AlmoxarifadoRepository;
 
@@ -19,6 +22,13 @@ public class AlmoxarifadoService {
 	@Autowired
 	private AlmoxarifadoRepository almoxarifadoRepository;
 
+	@Autowired
+	private MaterialService materialService;
+	
+	@Autowired
+	private AlmoxarifadoMaterialService almoxarifadoMaterialService;
+	
+	@Transactional
 	public Almoxarifado salvar(Almoxarifado almoxarifado) {
 		almoxarifado.ativar();
 		return almoxarifadoRepository.save(almoxarifado);
@@ -64,9 +74,35 @@ public class AlmoxarifadoService {
 		almoxarifadoRepository.save(almoxarifadoSave);
 	}
 
+	@Transactional
 	public void adicionarMateriais(Long codigo, List<Material> listaMateriais) {
 		Almoxarifado almoxarifadoSave = buscarPeloCodigo(codigo);		
-		almoxarifadoSave.setListaMateriais(listaMateriais);
-		almoxarifadoRepository.save(almoxarifadoSave);
+		
+		//adicionarMateriais
+		for(Material material : listaMateriais) {
+			AlmoxarifadoMaterial almoxarifadoMaterialBanco = almoxarifadoMaterialService.buscarPeloAlmoxarifadoEMaterial(codigo, material.getMaterialId());
+			if(almoxarifadoMaterialBanco!=null) {
+				continue;
+			}else {
+				Material materialBanco = materialService.buscarPeloCodigo(material.getMaterialId());
+				AlmoxarifadoMaterial almoxarifadoMaterial = new AlmoxarifadoMaterial(almoxarifadoSave, materialBanco);
+				almoxarifadoMaterialService.salvar(almoxarifadoMaterial);	
+			}
+		}
+		//excluir materiais
+		List<AlmoxarifadoMaterial>listaAlmoxarifadoMaterialBanco = almoxarifadoMaterialService.buscarPeloAlmoxarifado(codigo);
+		
+		for(AlmoxarifadoMaterial almoxarifadoMaterial:listaAlmoxarifadoMaterialBanco ) {
+			for(Material material : listaMateriais){
+				if(material.getMaterialId() == almoxarifadoMaterial.getMaterial().getMaterialId()) {
+					listaAlmoxarifadoMaterialBanco.remove(almoxarifadoMaterial);
+					continue;
+				}else {
+					continue;
+				}
+			}
+		}
+		
+
 	}
 }

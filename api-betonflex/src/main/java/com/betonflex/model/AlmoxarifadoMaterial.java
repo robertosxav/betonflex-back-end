@@ -55,5 +55,18 @@ public class AlmoxarifadoMaterial implements Serializable{
 	public void setMaterial(Material material) {
 		this.material = material;
 	}
+
+	public AlmoxarifadoMaterial() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public AlmoxarifadoMaterial(Almoxarifado almoxarifado, Material material) {
+		super();
+		this.almoxarifado = almoxarifado;
+		this.material = material;
+	}
+	
+	
 	 
 } 

@@ -66,4 +66,8 @@ public class OrdemServicoService {
 		return ordemservicoRepository.findByTipoServicoTipoServicoId(tipoServicoId,pageable);
 	}
 
+	public Page<OrdemServico> listarTodasOrdemServicosCliente(Long clienteId, Pageable pageable) {
+		return ordemservicoRepository.listarTodasOrdemServicosCliente(clienteId,pageable);
+	}
+
 }

@@ -9,7 +9,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
+import com.betonflex.model.Almoxarifado;
+import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.model.Cliente;
+import com.betonflex.model.Material;
+import com.betonflex.model.OrdemServico;
+import com.betonflex.model.OrdemServicoCliente;
 import com.betonflex.repository.ClienteRepository;
 
 @Service
@@ -17,6 +22,12 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private OrdemServicoService ordemServicoService;
+	
+	@Autowired
+	private OrdemServicoClienteService ordemServicoClienteService;
 
 	public Cliente salvar(Cliente cliente) {
 		cliente.ativar();
@@ -24,20 +35,19 @@ public class ClienteService {
 	}
 
 	public Cliente buscarPeloCodigo(Long codigo) {
-		Cliente clienteSalva = clienteRepository
-				.findById(codigo)
-				.orElseThrow(()-> new BetonflexException("Id não encontrado"));
+		Cliente clienteSalva = clienteRepository.findById(codigo)
+				.orElseThrow(() -> new BetonflexException("Id não encontrado"));
 
 		return clienteSalva;
 	}
 
 	public Cliente atualizar(Long codigo, Cliente cliente) {
 		Cliente clienteSave = buscarPeloCodigo(codigo);
-		BeanUtils.copyProperties(cliente, clienteSave, "clienteId","clienteCreateat");
+		BeanUtils.copyProperties(cliente, clienteSave, "clienteId", "clienteCreateat");
 		return clienteRepository.save(clienteSave);
 	}
 
-	public Page<Cliente> pesquisar(Pageable pageable){
+	public Page<Cliente> pesquisar(Pageable pageable) {
 		return clienteRepository.findAll(pageable);
 	}
 
@@ -46,7 +56,24 @@ public class ClienteService {
 	}
 
 	public Page<Cliente> buscaGenerica(String pesquisa, Pageable pageable) {
-		return clienteRepository.buscaGenerica(pesquisa,pageable);
+		return clienteRepository.buscaGenerica(pesquisa, pageable);
+	}
+
+	public void adicionarOrdensServicos(Long codigo, List<OrdemServico> listaOrdensServico) {
+		Cliente clienteSave = buscarPeloCodigo(codigo);
+
+		// adicionarMateriais
+		for (OrdemServico ordemServico : listaOrdensServico) {
+			OrdemServicoCliente ordemServicoClienteBanco = ordemServicoClienteService.buscarPeloCLienteEOrdemServico(codigo,ordemServico.getOrdemServicoId());
+			if (ordemServicoClienteBanco != null) {
+				continue;
+			} else {
+				OrdemServico ordemServicoBanco = ordemServicoService.buscarPeloCodigo(ordemServico.getOrdemServicoId());
+				OrdemServicoCliente ordemServicoCliente = new OrdemServicoCliente(clienteSave, ordemServicoBanco);
+				ordemServicoClienteService.salvar(ordemServicoCliente);
+			}
+		}
+
 	}
 
 }

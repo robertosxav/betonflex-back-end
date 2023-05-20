@@ -18,14 +18,14 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "almoxarifado",schema="public") 
-public class Almoxarifado implements Serializable{ 
-	
+@Table(name = "almoxarifado", schema = "public")
+public class Almoxarifado implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "SEQUENCE_ALMOXARIFADO")
-	@SequenceGenerator(name = "SEQUENCE_ALMOXARIFADO",sequenceName = "public.almoxarifado_id",allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQUENCE_ALMOXARIFADO")
+	@SequenceGenerator(name = "SEQUENCE_ALMOXARIFADO", sequenceName = "public.almoxarifado_id", allocationSize = 1)
 	@Column(name = "almoxarifado_id")
 	private Long almoxarifadoId;
 
@@ -45,40 +45,39 @@ public class Almoxarifado implements Serializable{
 	@OneToMany()
 	@JoinColumn(name ="material_id")
 	private List<Material> listaMateriais;
-	
+
 	public Long getAlmoxarifadoId() {
 		return almoxarifadoId;
 	}
-	 
+
 	public void setAlmoxarifadoId(Long almoxarifadoId) {
 		this.almoxarifadoId = almoxarifadoId;
 	}
-	 
+
 	public String getAlmoxarifadoNome() {
 		return almoxarifadoNome;
 	}
-	 
+
 	public void setAlmoxarifadoNome(String almoxarifadoNome) {
 		this.almoxarifadoNome = almoxarifadoNome;
 	}
-	 
+
 	public String getAlmoxarifadoDescricao() {
 		return almoxarifadoDescricao;
 	}
-	 
+
 	public void setAlmoxarifadoDescricao(String almoxarifadoDescricao) {
 		this.almoxarifadoDescricao = almoxarifadoDescricao;
 	}
-	 
+
 	public Boolean getAlmoxarifadoAtivo() {
 		return almoxarifadoAtivo;
 	}
-	 
-	 
+
 	public LocalDate getAlmoxarifadoCreateat() {
 		return almoxarifadoCreateat;
 	}
-	
+
 	public List<Material> getListaMateriais() {
 		return listaMateriais;
 	}
@@ -91,11 +90,10 @@ public class Almoxarifado implements Serializable{
 		this.almoxarifadoAtivo = true;
 		this.almoxarifadoCreateat = LocalDate.now();
 	}
-	
+
 	public void inativar() {
 		this.almoxarifadoAtivo = false;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -119,6 +117,6 @@ public class Almoxarifado implements Serializable{
 		return "Almoxarifado [almoxarifadoId=" + almoxarifadoId + ", almoxarifadoNome=" + almoxarifadoNome
 				+ ", almoxarifadoDescricao=" + almoxarifadoDescricao + ", almoxarifadoAtivo=" + almoxarifadoAtivo
 				+ ", almoxarifadoCreateat=" + almoxarifadoCreateat + "]";
-	}	 
-	
-} 
+	}
+
+}

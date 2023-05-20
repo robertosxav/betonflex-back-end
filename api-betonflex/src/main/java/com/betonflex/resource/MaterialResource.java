@@ -89,4 +89,11 @@ public class MaterialResource {
 		materialService.remover(codigo);
 		return ResponseEntity.status(HttpStatus.OK).body("Registro deletado com sucesso");
 	}
+	
+	@ApiOperation(value = "Pesquisar todos materiais ativos de um almoxarifado")
+	@GetMapping("/almoxarifado/{almoxarifadoId}")
+	public Page<Material> listarTodosMateriasAlmoxarifado(@PathVariable Long almoxarifadoId, Pageable pageable) {
+		return materialService.listarTodosMateriasAlmoxarifado(almoxarifadoId, pageable);
+	}
+
 }

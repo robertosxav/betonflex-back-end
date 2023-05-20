@@ -42,7 +42,7 @@ public class AlmoxarifadoResource {
 	@PutMapping("/adicionarmateriais/{codigo}")
 	public ResponseEntity<String> adicionarMateriais(@PathVariable Long codigo, @RequestBody List<Material> listaMateriais) {
 		almoxarifadoService.adicionarMateriais(codigo,listaMateriais);
-		return ResponseEntity.status(HttpStatus.OK).body("Registro deletado com sucesso");
+		return ResponseEntity.status(HttpStatus.OK).body("Registro adicionado com sucesso");
 	}
 
 	@ApiOperation(value = "Buscar um almoxarifado pelo código")

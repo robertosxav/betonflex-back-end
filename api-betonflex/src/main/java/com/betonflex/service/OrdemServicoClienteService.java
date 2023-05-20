@@ -48,4 +48,8 @@ public class OrdemServicoClienteService {
 		ordemservicoclienteRepository.deleteById(codigo);
 	}
 
+	public OrdemServicoCliente buscarPeloCLienteEOrdemServico(Long clienteId, Long ordemServicoId) {
+		return ordemservicoclienteRepository.buscarPeloCLienteEOrdemServico(clienteId,ordemServicoId);
+	}
+
 }

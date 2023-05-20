@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.betonflex.model.Cliente;
+import com.betonflex.model.OrdemServico;
 import com.betonflex.service.ClienteService;
 
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +37,13 @@ public class ClienteResource {
 	public ResponseEntity<Cliente> criar(@Validated @RequestBody Cliente cliente, HttpServletResponse response) {
 		Cliente clienteSalva = clienteService.salvar(cliente);
 		return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalva);
+	}
+	
+	@ApiOperation(value = "Adicionar ordens de serviço de um cliente")
+	@PutMapping("/adicionarordenservicos/{codigo}")
+	public ResponseEntity<String> adicionarOrdensServicos(@PathVariable Long codigo, @RequestBody List<OrdemServico> listaOrdensServico) {
+		clienteService.adicionarOrdensServicos(codigo,listaOrdensServico);
+		return ResponseEntity.status(HttpStatus.OK).body("Registro adicionado com sucesso");
 	}
 
 	@ApiOperation(value = "Buscar um cliente pelo código")

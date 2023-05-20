@@ -69,9 +69,16 @@ public class OrdemServicoResource {
 	public Page<OrdemServico> buscaGenerica(@RequestParam String pesquisa, Pageable pageable) {
 		return ordemservicoService.buscaGenerica(pesquisa, pageable);
 	}
+	
 	@ApiOperation(value = "Buscar todas ordens de serviço por um tipo de serviço, resposta paginada")
 	@GetMapping("/buscatiposervico/{tipoServicoId}")
 	public Page<OrdemServico> buscaTipoServico(@PathVariable Long tipoServicoId, Pageable pageable) {
 		return ordemservicoService.buscaTipoServico(tipoServicoId, pageable);
+	}
+	
+	@ApiOperation(value = "Pesquisar todos materiais ativos de um almoxarifado")
+	@GetMapping("/cliente/{clienteId}")
+	public Page<OrdemServico> listarTodasOrdemServicosCliente(@PathVariable Long clienteId, Pageable pageable) {
+		return ordemservicoService.listarTodasOrdemServicosCliente(clienteId, pageable);
 	}
 }

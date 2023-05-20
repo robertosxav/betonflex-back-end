@@ -1,4 +1,4 @@
-package com.betonflex.resource;
+/*package com.betonflex.resource;
 
 import java.util.List;
 
@@ -66,4 +66,4 @@ public class AlmoxarifadoMaterialResource {
 		almoxarifadomaterialService.remover(codigo);
 	}
 
-}
+}*/

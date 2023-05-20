@@ -22,6 +22,12 @@ public interface MaterialRepository extends JpaRepository<Material, Long>{
 	@Query("SELECT m from Material m "
 			+ "where m.materialAtivo = true "
 			+ "and(UPPER(m.materialNome) like concat('%',:pesquisa,'%') or UPPER(m.materialDescricao) like concat('%',:pesquisa,'%'))")
-	Page<Material> buscaGenerica(String pesquisa, Pageable pageable); 
+	Page<Material> buscaGenerica(String pesquisa, Pageable pageable);
+
+	@Query("SELECT m from Material m "
+			+ "inner join AlmoxarifadoMaterial am on am.material.materialId = m.materialId "
+			+ "inner join Almoxarifado a on a.almoxarifadoId = am.almoxarifado.almoxarifadoId "
+			+ "where a.almoxarifadoId = :almoxarifadoId")
+	Page<Material> listarTodosMateriasAlmoxarifado(Long almoxarifadoId,Pageable pageable); 
 	
 } 

@@ -62,4 +62,8 @@ public class MaterialService {
 		return materialRepository.buscaGenerica(pesquisa.toUpperCase(),pageable);
 	}
 
+	public Page<Material> listarTodosMateriasAlmoxarifado(Long almoxarifadoId,Pageable pageable) {
+		return materialRepository.listarTodosMateriasAlmoxarifado(almoxarifadoId, pageable);
+	}
+
 }

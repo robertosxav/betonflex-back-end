@@ -13,7 +13,7 @@ import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.repository.AlmoxarifadoMaterialRepository;
 
 @Service
-public class AlmoxarifadoMaterialService {
+public class AlmoxarifadoMaterialService{
 
 	@Autowired
 	private AlmoxarifadoMaterialRepository almoxarifadomaterialRepository;
@@ -46,6 +46,16 @@ public class AlmoxarifadoMaterialService {
 
 	public void remover(Long codigo) {
 		//AlmoxarifadoMaterial almoxarifadomaterialSave = buscarPeloCodigo(codigo);
+	}
+	
+	
+	public AlmoxarifadoMaterial buscarPeloAlmoxarifadoEMaterial(Long materialId,Long almoxarifadoId) {
+		return almoxarifadomaterialRepository.buscarPeloAlmoxarifadoEMaterial(materialId,almoxarifadoId);
+				
+	}
+	
+	public List<AlmoxarifadoMaterial> buscarPeloAlmoxarifado(Long almoxarifadoId){
+		return almoxarifadomaterialRepository.buscarPeloAlmoxarifado(almoxarifadoId);
 	}
 
 }
