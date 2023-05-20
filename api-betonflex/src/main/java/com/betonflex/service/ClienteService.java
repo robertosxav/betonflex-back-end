@@ -23,11 +23,11 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	@Autowired
+	/*@Autowired
 	private OrdemServicoService ordemServicoService;
 	
 	@Autowired
-	private OrdemServicoClienteService ordemServicoClienteService;
+	private OrdemServicoClienteService ordemServicoClienteService;*/
 
 	public Cliente salvar(Cliente cliente) {
 		cliente.ativar();
@@ -60,7 +60,7 @@ public class ClienteService {
 	}
 
 	public void adicionarOrdensServicos(Long codigo, List<OrdemServico> listaOrdensServico) {
-		Cliente clienteSave = buscarPeloCodigo(codigo);
+		/*Cliente clienteSave = buscarPeloCodigo(codigo);
 
 		// adicionarMateriais
 		for (OrdemServico ordemServico : listaOrdensServico) {
@@ -72,7 +72,7 @@ public class ClienteService {
 				OrdemServicoCliente ordemServicoCliente = new OrdemServicoCliente(clienteSave, ordemServicoBanco);
 				ordemServicoClienteService.salvar(ordemServicoCliente);
 			}
-		}
+		}*/
 
 	}
 

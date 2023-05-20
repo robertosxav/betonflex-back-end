@@ -35,7 +35,7 @@ public interface MaterialRepository extends JpaRepository<Material, Long>{
 			+ "select m2.material_id from almoxarifado_material am "
 			+ "inner join almoxarifado a on a.almoxarifado_id = am.almoxarifado_id "
 			+ "inner join material m2 ON m2.material_id = am.material_id "
-			+ "where a.almoxarifado_id = 3)")
+			+ "where a.almoxarifado_id = :almoxarifadoId)")
 	List<Material> listarTodosMateriasQueNaPertencemAlmoxarifado(Long almoxarifadoId); 
 	
 } 

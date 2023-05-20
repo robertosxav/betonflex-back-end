@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
+import com.betonflex.model.Cliente;
+import com.betonflex.model.OrdemServico;
 import com.betonflex.model.OrdemServicoCliente;
 import com.betonflex.repository.OrdemServicoClienteRepository;
 
@@ -14,9 +16,21 @@ public class OrdemServicoClienteService {
 
 	@Autowired
 	private OrdemServicoClienteRepository ordemservicoclienteRepository;
+	
+	@Autowired
+	private OrdemServicoService ordemServicoService;
+	
+	@Autowired
+	private ClienteService clienteService;
 
-	public OrdemServicoCliente salvar(OrdemServicoCliente ordemservicocliente) {
-		return ordemservicoclienteRepository.save(ordemservicocliente);
+	public OrdemServicoCliente salvar(OrdemServicoCliente ordemServicocliente) {
+		OrdemServico ordemServico = ordemServicoService.buscarPeloCodigo(ordemServicocliente.getOrdemServico().getOrdemServicoId());
+		ordemServicocliente.setOrdemServico(ordemServico);
+		
+		Cliente cliente =  clienteService.buscarPeloCodigo(ordemServicocliente.getCliente().getClienteId());
+		ordemServicocliente.setCliente(cliente);
+		
+		return ordemservicoclienteRepository.save(ordemServicocliente);
 	}
 
 	public OrdemServicoCliente buscarPeloCodigo(Long codigo) {
