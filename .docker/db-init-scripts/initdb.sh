@@ -1,0 +1,1 @@
+sudo su postgres psql -d betonflex -c "CREATE SCHEMA keycloack;"

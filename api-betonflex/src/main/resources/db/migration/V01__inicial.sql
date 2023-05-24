@@ -30,3 +30,4 @@ ALTER TABLE ordem_servico ADD CONSTRAINT IORDEM_SERVICO1 FOREIGN KEY (tipo_servi
 
 ALTER TABLE ordem_servico_cliente ADD CONSTRAINT IORDEM_SERVICO_CLIENTE1 FOREIGN KEY (cliente_id) REFERENCES cliente (cliente_id);
 
+commit;
