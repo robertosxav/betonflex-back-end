@@ -18,7 +18,6 @@ import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.service.AlmoxarifadoMaterialService;
 
 import io.swagger.annotations.ApiOperation;
-import springfox.documentation.annotations.ApiIgnore;
 
 
 @RestController
