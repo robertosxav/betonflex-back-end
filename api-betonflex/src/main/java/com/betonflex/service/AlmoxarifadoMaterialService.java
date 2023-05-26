@@ -12,6 +12,7 @@ import com.betonflex.exceptions.BetonflexException;
 import com.betonflex.model.Almoxarifado;
 import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.model.Material;
+import com.betonflex.model.enuns.StatusMatAlmoxaridoEnum;
 import com.betonflex.repository.AlmoxarifadoMaterialRepository;
 
 @Service
@@ -43,6 +44,7 @@ public class AlmoxarifadoMaterialService{
 		Material material = materialService.buscarPeloCodigo(almoxarifadomaterial.getMaterial().getMaterialId());
 		almoxarifadomaterial.setMaterial(material);
 		almoxarifadomaterial.setData(LocalDate.now());
+		almoxarifadomaterial.setStatus(StatusMatAlmoxaridoEnum.NOVO);
 		
 		Almoxarifado almoxarifado = almoxarifadoService.buscarPeloCodigo(almoxarifadomaterial.getAlmoxarifado().getAlmoxarifadoId());
 		almoxarifadomaterial.setAlmoxarifado(almoxarifado);

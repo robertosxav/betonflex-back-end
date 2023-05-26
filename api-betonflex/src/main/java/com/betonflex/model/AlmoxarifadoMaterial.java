@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import com.betonflex.model.enuns.StatusMatAlmoxaridoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.CascadeType;
@@ -53,8 +56,9 @@ public class AlmoxarifadoMaterial implements Serializable{
 	@Column(name="almoxarifado_material_qtd_uti")
 	private BigDecimal qtdeUtilizada;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name="almoxarifado_material_status")
-	private String status;
+	private StatusMatAlmoxaridoEnum status;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	@Column(name="almoxarifado_material_data")
@@ -124,11 +128,11 @@ public class AlmoxarifadoMaterial implements Serializable{
 		this.qtdeUtilizada = qtdeUtilizada;
 	}
 
-	public String getStatus() {
+	public StatusMatAlmoxaridoEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusMatAlmoxaridoEnum status) {
 		this.status = status;
 	}
 
@@ -152,7 +156,7 @@ public class AlmoxarifadoMaterial implements Serializable{
 	}
 
 	public AlmoxarifadoMaterial(Almoxarifado almoxarifado, Material material, String lote, BigDecimal valorUnitario,
-			BigDecimal valorTotal, BigDecimal qtde, BigDecimal qtdeUtilizada, String status, LocalDate data) {
+			BigDecimal valorTotal, BigDecimal qtde, BigDecimal qtdeUtilizada, StatusMatAlmoxaridoEnum status, LocalDate data) {
 		super();
 		this.almoxarifado = almoxarifado;
 		this.material = material;
