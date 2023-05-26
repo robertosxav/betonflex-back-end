@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.betonflex.model.OrdemServico;
 import com.betonflex.service.OrdemServicoService;
@@ -80,5 +81,17 @@ public class OrdemServicoResource {
 	@GetMapping("/cliente/{clienteId}")
 	public Page<OrdemServico> listarTodasOrdemServicosCliente(@PathVariable Long clienteId, Pageable pageable) {
 		return ordemservicoService.listarTodasOrdemServicosCliente(clienteId, pageable);
+	}
+	
+	/**
+	 * Inserir arquivos de Assiduidade
+	 * @param id da assiduidade
+	 * @return Mensagem de retorno avisando que os arquivos foram inseridos
+	 */
+	@ApiOperation(value = "Fazer upload do arquivo")
+	@PutMapping("/upload/{ordemServicoId}")
+	public ResponseEntity<String> uploadArquivos(@PathVariable Long ordemServicoId, @RequestParam("file") MultipartFile[] arquivos){
+		ordemservicoService.fazerUploadArquivo(ordemServicoId, arquivos);
+		return ResponseEntity.status(HttpStatus.CREATED).body("Envio de arquivo realizado com sucesso");
 	}
 }
