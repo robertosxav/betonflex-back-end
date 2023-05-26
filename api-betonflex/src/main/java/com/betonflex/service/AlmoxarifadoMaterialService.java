@@ -1,5 +1,6 @@
 package com.betonflex.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class AlmoxarifadoMaterialService{
 	public AlmoxarifadoMaterial salvar(AlmoxarifadoMaterial almoxarifadomaterial) {
 		Material material = materialService.buscarPeloCodigo(almoxarifadomaterial.getMaterial().getMaterialId());
 		almoxarifadomaterial.setMaterial(material);
+		almoxarifadomaterial.setData(LocalDate.now());
 		
 		Almoxarifado almoxarifado = almoxarifadoService.buscarPeloCodigo(almoxarifadomaterial.getAlmoxarifado().getAlmoxarifadoId());
 		almoxarifadomaterial.setAlmoxarifado(almoxarifado);

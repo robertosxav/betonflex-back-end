@@ -40,7 +40,7 @@ public class MaterialMovimentacaoResource {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<MaterialMovimentacao> buscarPeloCodigo(@PathVariable Long codigo) {
 		MaterialMovimentacao materialmovimentacao = materialmovimentacaoService.buscarPeloCodigo(codigo);
-		return materialmovimentacao != null ? ResponseEntity.ok(materialmovimentacao) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(materialmovimentacao);
 	}
 
 	@PutMapping("/{codigo}")

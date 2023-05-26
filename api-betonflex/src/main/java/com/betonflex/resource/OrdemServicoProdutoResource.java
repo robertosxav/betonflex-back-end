@@ -39,7 +39,7 @@ public class OrdemServicoProdutoResource {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<OrdemServicoProduto> buscarPeloCodigo(@PathVariable Long codigo) {
 		OrdemServicoProduto ordemservicoproduto = ordemservicoprodutoService.buscarPeloCodigo(codigo);
-		return ordemservicoproduto != null ? ResponseEntity.ok(ordemservicoproduto) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(ordemservicoproduto);
 	}
 
 	@PutMapping("/{codigo}")
