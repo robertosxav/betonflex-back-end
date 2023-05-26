@@ -1,6 +1,7 @@
 package com.betonflex.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -40,6 +41,9 @@ public class OrdemServico implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "ordem_servico_data_abertura")
 	private LocalDate ordemServicoDataAbertura;
+	
+	@Column(name = "ordem_servico_valor")
+	private BigDecimal ordemServicoValor;
 
 	public Long getOrdemServicoId() {
 		return ordemServicoId;
@@ -81,6 +85,15 @@ public class OrdemServico implements Serializable{
 		this.ordemServicoDataAbertura = ordemServicoDataAbertura;
 	}
 	
+	
+	public BigDecimal getOrdemServicoValor() {
+		return ordemServicoValor;
+	}
+
+	public void setOrdemServicoValor(BigDecimal ordemServicoValor) {
+		this.ordemServicoValor = ordemServicoValor;
+	}
+
 	public void ativar() {
 		this.ordemServicoStatus = StatusEnum.NOVO;
 	}
@@ -106,7 +119,9 @@ public class OrdemServico implements Serializable{
 	public String toString() {
 		return "OrdemServico [ordemServicoId=" + ordemServicoId + ", ordemServicoNumero=" + ordemServicoNumero
 				+ ", tipoServico=" + tipoServico + ", ordemServicoStatus=" + ordemServicoStatus
-				+ ", ordemServicoDataAbertura=" + ordemServicoDataAbertura + "]";
+				+ ", ordemServicoDataAbertura=" + ordemServicoDataAbertura + ", ordemServicoValor=" + ordemServicoValor
+				+ "]";
 	}
+
 	
 } 
