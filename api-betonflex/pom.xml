@@ -11,7 +11,7 @@
 	<groupId>com.betonflex</groupId>
 	<artifactId>api-betonflex</artifactId>
 	<version>0.0.1</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>api-betonflex</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -112,5 +112,12 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
+		<profile>
+			<id>homo</id>
+			<properties>
+				<activatedProperties>homo</activatedProperties>
+			</properties>
+		</profile>
+
 	</profiles>
 </project>

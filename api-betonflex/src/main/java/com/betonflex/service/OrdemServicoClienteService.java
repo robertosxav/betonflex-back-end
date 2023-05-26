@@ -1,5 +1,7 @@
 package com.betonflex.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,10 +25,13 @@ public class OrdemServicoClienteService {
 	@Autowired
 	private ClienteService clienteService;
 
+	@Transactional
 	public OrdemServicoCliente salvar(OrdemServicoCliente ordemServicocliente) {
-		OrdemServico ordemServico = ordemServicoService.buscarPeloCodigo(ordemServicocliente.getOrdemServico().getOrdemServicoId());
-		ordemServicocliente.setOrdemServico(ordemServico);
+		//OrdemServico ordemServico = ordemServicoService.buscarPeloCodigo(ordemServicocliente.getOrdemServico().getOrdemServicoId());
+		//ordemServicocliente.setOrdemServico(ordemServico);
+		OrdemServico ordemServico = ordemServicoService.salvar(ordemServicocliente.getOrdemServico());
 		
+		ordemServicocliente.setOrdemServico(ordemServico);
 		Cliente cliente =  clienteService.buscarPeloCodigo(ordemServicocliente.getCliente().getClienteId());
 		ordemServicocliente.setCliente(cliente);
 		
