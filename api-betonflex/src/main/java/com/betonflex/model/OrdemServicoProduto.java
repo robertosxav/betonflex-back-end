@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Table(name = "public.ordem_servico_produto") 
+@Table(name = "ordem_servico_produto",schema="public") 
 public class OrdemServicoProduto implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;

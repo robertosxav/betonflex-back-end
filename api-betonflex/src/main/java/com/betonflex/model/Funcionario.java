@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "public.funcionario") 
+@Table(name = "funcionario",schema = "public") 
 public class Funcionario implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;

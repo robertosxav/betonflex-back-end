@@ -97,3 +97,4 @@ ALTER TABLE ordem_servico_fechamento ADD CONSTRAINT IORDEM_SERVICO_FECHAMENTO1 F
 
 ALTER TABLE ordem_servico_produto ADD CONSTRAINT IORDEM_SERVICO_PRODUTO1 FOREIGN KEY (ordem_servico_id) REFERENCES ordem_servico (ordem_servico_id);
 
+commit;

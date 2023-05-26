@@ -12,7 +12,7 @@ import java.util.Date;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "public.ordem_servico_material") 
+@Table(name = "ordem_servico_material",schema="public") 
 public class OrdemServicoMaterial implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;

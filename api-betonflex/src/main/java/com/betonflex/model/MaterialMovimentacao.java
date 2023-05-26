@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Table(name = "public.material_movimentacao") 
+@Table(name = "material_movimentacao",schema="public") 
 public class MaterialMovimentacao implements Serializable{ 
 	
 	private static final long serialVersionUID = 1L;
