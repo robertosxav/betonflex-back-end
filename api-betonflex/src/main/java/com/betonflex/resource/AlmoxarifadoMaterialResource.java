@@ -1,5 +1,7 @@
 package com.betonflex.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +40,12 @@ public class AlmoxarifadoMaterialResource {
 	@GetMapping("/almoxarifado/{almoxarifadoId}")
 	public Page<AlmoxarifadoMaterial> buscarPeloAlmoxarifado(@PathVariable Long almoxarifadoId,Pageable pageable){
 		return almoxarifadomaterialService.buscarPeloAlmoxarifado(almoxarifadoId,pageable);
+	}
+	
+	@ApiOperation(value = "Lista de objetos do tipo AlmoxarifadoMaterial passando o almoxarifadoId")
+	@GetMapping("/almoxarifado/list/{almoxarifadoId}")
+	public List<AlmoxarifadoMaterial> buscarPeloAlmoxarifadoList(@PathVariable Long almoxarifadoId){
+		return almoxarifadomaterialService.buscarPeloAlmoxarifado(almoxarifadoId);
 	}
 	
 	@ApiOperation(value = "Criar uma linha tabela nxn de almoxarifadoMaterial")

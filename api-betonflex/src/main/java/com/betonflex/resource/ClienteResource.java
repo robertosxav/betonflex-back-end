@@ -78,6 +78,14 @@ public class ClienteResource {
 		return clienteService.buscaGenerica(pesquisa, pageable);
 	}
 	
+
+	
+	@ApiOperation(value = "Pesquisar todos clientes")
+	@GetMapping("/notInOrdemServico/{ordemServicoId}")
+	public List<Cliente> buscarTodosClientesNaoEstaoNaOrdemServicoOrdemServico(@PathVariable Long ordemServicoId) {
+		return clienteService.buscarTodosClientesNaoEstaoNaOrdemServicoOrdemServico(ordemServicoId);
+	}
+	
 	/*@DeleteMapping("/{codigo}")
 	public void remover(@PathVariable Long codigo) {
 		clienteService.remover(codigo);

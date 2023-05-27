@@ -80,4 +80,6 @@ public class AlmoxarifadoMaterialService{
 		return almoxarifadomaterialRepository.buscarPeloAlmoxarifado(almoxarifadoId,pageable);
 	}
 
+
+
 }

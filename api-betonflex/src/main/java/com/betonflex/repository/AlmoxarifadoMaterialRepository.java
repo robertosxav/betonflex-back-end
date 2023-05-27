@@ -21,5 +21,7 @@ public interface AlmoxarifadoMaterialRepository extends JpaRepository<Almoxarifa
 	
 	@Query("SELECT distinct am FROM AlmoxarifadoMaterial am where am.almoxarifado.almoxarifadoId = :almoxarifadoId")
 	Page<AlmoxarifadoMaterial> buscarPeloAlmoxarifado(Long almoxarifadoId, Pageable pageable);
+
+	
 	
 } 

@@ -1,6 +1,7 @@
 package com.betonflex.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -42,10 +43,10 @@ public class OrdemServicoMaterial implements Serializable{
 	private Funcionario funcionario;
 
 	@Column(name = "ordem_servico_material_valor")
-	private String ordemServicoMaterialValor;
+	private BigDecimal ordemServicoMaterialValor;
 
 	@Column(name = "almoxarifado_material_valor")
-	private String almoxarifado_material_valor;
+	private BigDecimal almoxarifado_material_valor;
 
 	@Column(name = "ordem_servico_material_qtd")
 	private Integer ordem_servico_material_qtd;
@@ -98,19 +99,19 @@ public class OrdemServicoMaterial implements Serializable{
 		this.funcionario = funcionario;
 	}
 
-	public String getOrdemServicoMaterialValor() {
+	public BigDecimal getOrdemServicoMaterialValor() {
 		return ordemServicoMaterialValor;
 	}
 
-	public void setOrdemServicoMaterialValor(String ordemServicoMaterialValor) {
+	public void setOrdemServicoMaterialValor(BigDecimal ordemServicoMaterialValor) {
 		this.ordemServicoMaterialValor = ordemServicoMaterialValor;
 	}
 
-	public String getAlmoxarifado_material_valor() {
+	public BigDecimal getAlmoxarifado_material_valor() {
 		return almoxarifado_material_valor;
 	}
 
-	public void setAlmoxarifado_material_valor(String almoxarifado_material_valor) {
+	public void setAlmoxarifado_material_valor(BigDecimal almoxarifado_material_valor) {
 		this.almoxarifado_material_valor = almoxarifado_material_valor;
 	}
 

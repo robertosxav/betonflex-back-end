@@ -19,5 +19,9 @@ public interface OrdemServicoClienteRepository extends JpaRepository<OrdemServic
 	@Query("SELECT osc FROM OrdemServicoCliente osc "
 			+ "WHERE osc.cliente.clienteId = :clienteId ")
 	Page<OrdemServicoCliente> buscarPeloCiente(Long clienteId, Pageable pageable);
+
+	@Query("SELECT osc FROM OrdemServicoCliente osc "
+			+ "WHERE osc.ordemServico.ordemServicoId = :ordemServicoId ")
+	Page<OrdemServicoCliente> buscarPelaOrdemServico(Long ordemServicoId, Pageable pageable);
 	
 } 

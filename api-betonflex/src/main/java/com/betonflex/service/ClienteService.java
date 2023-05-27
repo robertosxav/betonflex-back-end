@@ -76,4 +76,10 @@ public class ClienteService {
 
 	}
 
+
+	public List<Cliente> buscarTodosClientesNaoEstaoNaOrdemServicoOrdemServico(Long ordemServicoId) {
+		return clienteRepository.buscarTodosClientesNaoEstaoNaOrdemServicoOrdemServico(ordemServicoId);
+	
+	}
+
 }

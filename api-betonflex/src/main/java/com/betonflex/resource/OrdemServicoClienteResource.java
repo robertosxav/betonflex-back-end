@@ -32,6 +32,13 @@ public class OrdemServicoClienteResource {
 		OrdemServicoCliente ordemservicoclienteSalva = ordemservicoclienteService.salvar(ordemservicocliente);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ordemservicoclienteSalva);
 	}
+	@ApiOperation(value = "Criar uma linha tabela nxn de OrdemServicoCliente")
+	@PostMapping("/vincularClienteOrdemServico")
+	public ResponseEntity<OrdemServicoCliente> vincularClienteOrdemServico(@Validated @RequestBody OrdemServicoCliente ordemservicocliente) {
+		OrdemServicoCliente ordemservicoclienteSalva = ordemservicoclienteService.vincularClienteOrdemServico(ordemservicocliente);
+		return ResponseEntity.status(HttpStatus.CREATED).body(ordemservicoclienteSalva);
+	}
+	
 	
 	@ApiOperation(value = "Excluir relacionamento entre ordem servico e cliente(exclusão fisica)")
 	@DeleteMapping("/{codigo}")
@@ -44,6 +51,12 @@ public class OrdemServicoClienteResource {
 	@GetMapping("/cliente/{clienteId}")
 	public Page<OrdemServicoCliente> buscarPeloCLienteEOrdemServico(@PathVariable Long clienteId,Pageable pageable){
 		return ordemservicoclienteService.buscarPeloCiente(clienteId,pageable);
+	}
+	
+	@ApiOperation(value = "Lista de objetos do tipo OrdemServicoCliente passando o ordemServicoId")
+	@GetMapping("/ordemServico/{ordemServicoId}")
+	public Page<OrdemServicoCliente> buscarPeloOrdemServico(@PathVariable Long ordemServicoId,Pageable pageable){
+		return ordemservicoclienteService.buscarPelaOrdemServico(ordemServicoId,pageable);
 	}
 	
 /*

@@ -77,6 +77,7 @@ public class AlmoxarifadoResource {
 		return almoxarifadoService.listarTodosAtivos();
 	}
 	
+	
 	@ApiOperation(value = "Pesquisar todos almoxarifados ativos, resposta paginada")
 	@GetMapping("/ativos/paginado")
 	public Page<Almoxarifado> listarTodosAtivo(Pageable pageable) {

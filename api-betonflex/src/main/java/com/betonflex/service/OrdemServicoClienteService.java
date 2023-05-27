@@ -37,7 +37,14 @@ public class OrdemServicoClienteService {
 		
 		return ordemservicoclienteRepository.save(ordemServicocliente);
 	}
-
+	
+	@Transactional
+	public OrdemServicoCliente vincularClienteOrdemServico(OrdemServicoCliente ordemServicocliente) {
+		OrdemServico ordemServico = ordemServicoService.buscarPeloCodigo(ordemServicocliente.getOrdemServico().getOrdemServicoId());
+		ordemServicocliente.setOrdemServico(ordemServico);
+		return ordemservicoclienteRepository.save(ordemServicocliente);
+	}
+	
 	public OrdemServicoCliente buscarPeloCodigo(Long codigo) {
 		return ordemservicoclienteRepository
 				.findById(codigo)
@@ -70,6 +77,10 @@ public class OrdemServicoClienteService {
 	
 	public Page<OrdemServicoCliente> buscarPeloCiente(Long clienteId, Pageable pageable) {
 		return ordemservicoclienteRepository.buscarPeloCiente(clienteId,pageable);
+	}
+
+	public Page<OrdemServicoCliente> buscarPelaOrdemServico(Long ordemServicoId, Pageable pageable) {
+		return ordemservicoclienteRepository.buscarPelaOrdemServico(ordemServicoId,pageable);
 	}
 
 }
