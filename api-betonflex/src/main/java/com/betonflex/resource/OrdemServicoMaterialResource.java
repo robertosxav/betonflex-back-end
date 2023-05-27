@@ -39,7 +39,7 @@ public class OrdemServicoMaterialResource {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<OrdemServicoMaterial> buscarPeloCodigo(@PathVariable Long codigo) {
 		OrdemServicoMaterial ordemservicomaterial = ordemservicomaterialService.buscarPeloCodigo(codigo);
-		return ordemservicomaterial != null ? ResponseEntity.ok(ordemservicomaterial) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(ordemservicomaterial);
 	}
 
 	@PutMapping("/{codigo}")
@@ -59,7 +59,6 @@ public class OrdemServicoMaterialResource {
 	}
 
 	@DeleteMapping("/{codigo}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
 		ordemservicomaterialService.remover(codigo);
 	}

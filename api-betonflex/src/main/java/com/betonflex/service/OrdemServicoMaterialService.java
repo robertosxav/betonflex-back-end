@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.betonflex.exceptions.BetonflexException;
+import com.betonflex.model.AlmoxarifadoMaterial;
+import com.betonflex.model.Funcionario;
+import com.betonflex.model.OrdemServico;
 import com.betonflex.model.OrdemServicoMaterial;
 import com.betonflex.repository.OrdemServicoMaterialRepository;
 
@@ -17,17 +20,37 @@ public class OrdemServicoMaterialService {
 
 	@Autowired
 	private OrdemServicoMaterialRepository ordemservicomaterialRepository;
+	
+	@Autowired
+	AlmoxarifadoMaterialService almoxarifadoMaterialService;
 
+	@Autowired
+	OrdemServicoService ordemServicoService;
+	
+	@Autowired
+	FuncionarioService funcionarioService;
+	
 	public OrdemServicoMaterial salvar(OrdemServicoMaterial ordemservicomaterial) {
+		validar(ordemservicomaterial);
 		return ordemservicomaterialRepository.save(ordemservicomaterial);
 	}
 
+	private void validar(OrdemServicoMaterial ordemservicomaterial) {
+		AlmoxarifadoMaterial almoxarifadoMaterial = almoxarifadoMaterialService.buscarPeloCodigo(ordemservicomaterial.getAlmoxarifadoMaterial().getAlmoxarifadoMaterialId());
+		ordemservicomaterial.setAlmoxarifadoMaterial(almoxarifadoMaterial);
+		
+		OrdemServico ordemServico = ordemServicoService.buscarPeloCodigo(ordemservicomaterial.getOrdemServico().getOrdemServicoId());
+		ordemservicomaterial.setOrdemServico(ordemServico);
+		
+		Funcionario funcionario=funcionarioService.buscarPeloCodigo(ordemservicomaterial.getFuncionario().getFuncionarioId());
+		ordemservicomaterial.setFuncionario(funcionario);
+	}
+
 	public OrdemServicoMaterial buscarPeloCodigo(Long codigo) {
-		OrdemServicoMaterial ordemservicomaterialSalva = ordemservicomaterialRepository.findById(codigo).get();
-		if (ordemservicomaterialSalva == null) {
-		throw new EmptyResultDataAccessException(1);
-			}
-		return ordemservicomaterialSalva;
+		return ordemservicomaterialRepository
+				.findById(codigo)
+				.orElseThrow(()-> new BetonflexException("Id não encontrado"));
+		
 	}
 
 	public OrdemServicoMaterial atualizar(Long codigo, OrdemServicoMaterial ordemservicomaterial) {
