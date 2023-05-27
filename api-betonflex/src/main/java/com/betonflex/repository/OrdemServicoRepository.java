@@ -1,5 +1,7 @@
 package com.betonflex.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,5 +22,8 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 			+ "inner join OrdemServicoCliente osc on osc.ordemServico.ordemServicoId = os.ordemServicoId "
 			+ "inner join Cliente c on c.clienteId = osc.cliente.clienteId "
 			+ "where c.clienteId  = :clienteId")
-	Page<OrdemServico> listarTodasOrdemServicosCliente(Long clienteId, Pageable pageable); 
+	Page<OrdemServico> listarTodasOrdemServicosCliente(Long clienteId, Pageable pageable);
+
+	@Query(nativeQuery = true,value = "SELECT os.* from ordem_servico os order by ordem_servico_id desc limit 10")
+	List<OrdemServico> listarUltimasOrdemServiços(); 
 } 

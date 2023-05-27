@@ -48,4 +48,15 @@ public class OrdemServicoAnexosService {
 		ordemservicoanexosRepository.deleteById(codigo);
 	}
 
+	public Page<OrdemServicoAnexos> listarAnexosOrdemServico(Long ordemServicoId, Pageable pageable) {
+		return ordemservicoanexosRepository.listarAnexosOrdemServico(ordemServicoId, pageable);
+	}
+	
+	public OrdemServicoAnexos obterDownloadArquivo(Long ordemServicoAnexoId) {
+		
+		OrdemServicoAnexos ordemServicoAnexo = buscarPeloCodigo(ordemServicoAnexoId);
+		
+		return ordemServicoAnexo;
+	}
+
 }

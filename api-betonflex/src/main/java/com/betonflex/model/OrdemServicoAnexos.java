@@ -5,6 +5,9 @@ import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.betonflex.model.enuns.ContentTypeEnum;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -75,6 +78,11 @@ public class OrdemServicoAnexos implements Serializable{
 
 	public void setOrdemServicoAnexoArqNome(String ordemServicoAnexoArqNome) {
 		this.ordemServicoAnexoArqNome = ordemServicoAnexoArqNome;
+	}
+	
+	public String getContentType() {
+		ContentTypeEnum contentTypeEnum = ContentTypeEnum.toEnum(this.getOrdemServicoAnexoArqTipo());
+		return contentTypeEnum.getMimeType();
 	}
 
 	public OrdemServicoAnexos() {

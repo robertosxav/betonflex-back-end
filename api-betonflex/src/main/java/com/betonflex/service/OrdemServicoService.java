@@ -131,5 +131,9 @@ public class OrdemServicoService {
 
 	}
 
+	public List<OrdemServico> listarUltimasOrdemServiços() {
+		return ordemservicoRepository.listarUltimasOrdemServiços();
+	}
+
 
 }

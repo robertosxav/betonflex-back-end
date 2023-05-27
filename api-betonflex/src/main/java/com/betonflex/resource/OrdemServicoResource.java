@@ -77,21 +77,22 @@ public class OrdemServicoResource {
 		return ordemservicoService.buscaTipoServico(tipoServicoId, pageable);
 	}
 	
-	@ApiOperation(value = "Pesquisar todos materiais ativos de um almoxarifado")
+	@ApiOperation(value = "Pesquisar todas ordens de serviço ativas de um cliente")
 	@GetMapping("/cliente/{clienteId}")
 	public Page<OrdemServico> listarTodasOrdemServicosCliente(@PathVariable Long clienteId, Pageable pageable) {
 		return ordemservicoService.listarTodasOrdemServicosCliente(clienteId, pageable);
 	}
 	
-	/**
-	 * Inserir arquivos de Assiduidade
-	 * @param id da assiduidade
-	 * @return Mensagem de retorno avisando que os arquivos foram inseridos
-	 */
 	@ApiOperation(value = "Fazer upload do arquivo")
 	@PutMapping("/upload/{ordemServicoId}")
 	public ResponseEntity<String> uploadArquivos(@PathVariable Long ordemServicoId, @RequestParam("file") MultipartFile[] arquivos){
 		ordemservicoService.fazerUploadArquivo(ordemServicoId, arquivos);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Envio de arquivo realizado com sucesso");
+	}
+	
+	@ApiOperation(value = "Trazer ultimas 10 ordens de serviços")
+	@GetMapping("/ultimasordemservicos")
+	public List<OrdemServico> listarUltimasOrdemServiços() {
+		return ordemservicoService.listarUltimasOrdemServiços();
 	}
 }
