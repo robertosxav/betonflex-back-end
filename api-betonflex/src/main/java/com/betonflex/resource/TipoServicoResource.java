@@ -2,14 +2,11 @@ package com.betonflex.resource;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.TipoServico;
 import com.betonflex.service.TipoServicoService;
 
-import io.swagger.annotations.ApiOperation;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/tiposervicos")
@@ -32,58 +30,58 @@ public class TipoServicoResource {
 	@Autowired
 	private TipoServicoService tiposervicoService;
 
-	@ApiOperation(value = "Criar um tipo de serviço")
+	//@ApiOperation(value = "Criar um tipo de serviço")
 	@PostMapping
-	public ResponseEntity<TipoServico> criar(@Validated @RequestBody TipoServico tiposervico, HttpServletResponse response) {
+	public ResponseEntity<TipoServico> criar(@Valid @RequestBody TipoServico tiposervico, HttpServletResponse response) {
 		 TipoServico tiposervicoSalva = tiposervicoService.salvar(tiposervico);
 		return ResponseEntity.status(HttpStatus.CREATED).body(tiposervicoSalva);
 	}
 
-	@ApiOperation(value = "Buscar um tipo de serviço pelo código")
+	//@ApiOperation(value = "Buscar um tipo de serviço pelo código")
 	@GetMapping("/{codigo}")
 	public ResponseEntity<TipoServico> buscarPeloCodigo(@PathVariable Long codigo) {
 		TipoServico tiposervico = tiposervicoService.buscarPeloCodigo(codigo);
 		return ResponseEntity.ok(tiposervico);
 	}
 
-	@ApiOperation(value = "Atualizar um tipo de serviço")
+	//@ApiOperation(value = "Atualizar um tipo de serviço")
 	@PutMapping("/{codigo}")
-	public ResponseEntity<TipoServico> atualizar(@PathVariable Long codigo, @Validated @RequestBody TipoServico tiposervico) {
+	public ResponseEntity<TipoServico> atualizar(@PathVariable Long codigo, @Valid @RequestBody TipoServico tiposervico) {
 		TipoServico tiposervicoSalva = tiposervicoService.atualizar(codigo, tiposervico);
 		return ResponseEntity.ok(tiposervicoSalva);
 	}
 
-	@ApiOperation(value = "Pesquisar todos tipos de serviço, resposta paginada")
+	//@ApiOperation(value = "Pesquisar todos tipos de serviço, resposta paginada")
 	@GetMapping
 	public Page<TipoServico> pesquisar(Pageable pageable) {
 		return tiposervicoService.pesquisar(pageable);
 	}
 
-	@ApiOperation(value = "Pesquisar todos tipos de serviço, resposta paginada")
+	//@ApiOperation(value = "Pesquisar todos tipos de serviço, resposta paginada")
 	@GetMapping("/all")
 	public List<TipoServico> pesquisar() {
 		return tiposervicoService.listarTodos();
 	}
 	
-	@ApiOperation(value = "Pesquisar todos tipos de serviço")
+	//@ApiOperation(value = "Pesquisar todos tipos de serviço")
 	@GetMapping("/ativos")
 	public List<TipoServico> listarTodosAtivos() {
 		return tiposervicoService.listarTodosAtivos();
 	}
 	
-	@ApiOperation(value = "Pesquisar todos tipos de serviço, resposta paginada")
+	//@ApiOperation(value = "Pesquisar todos tipos de serviço, resposta paginada")
 	@GetMapping("/ativos/paginado")
 	public Page<TipoServico> listarTodosAtivo(Pageable pageable) {
 		return tiposervicoService.listarTodosAtivos(pageable);
 	}
 	
-	@ApiOperation(value = "Pesquisar tipos de serviço passando um parametro de busca, resposta paginada")
+	//@ApiOperation(value = "Pesquisar tipos de serviço passando um parametro de busca, resposta paginada")
 	@GetMapping("/buscanegenerica")
 	public Page<TipoServico> buscaGenerica(@RequestParam String pesquisa, Pageable pageable) {
 		return tiposervicoService.buscaGenerica(pesquisa, pageable);
 	}
 
-	@ApiOperation(value = "Excluir um tipo de Serviço(Exclusão lógica)")
+	//@ApiOperation(value = "Excluir um tipo de Serviço(Exclusão lógica)")
 	@DeleteMapping("/{codigo}")
 	public ResponseEntity<String> remover(@PathVariable Long codigo) {
 		tiposervicoService.remover(codigo);

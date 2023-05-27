@@ -2,14 +2,11 @@ package com.betonflex.resource;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.MaterialMovimentacao;
 import com.betonflex.service.MaterialMovimentacaoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/materialmovimentacaos")
 public class MaterialMovimentacaoResource {
@@ -32,7 +31,7 @@ public class MaterialMovimentacaoResource {
 
 
 	@PostMapping
-	public ResponseEntity<MaterialMovimentacao> criar(@Validated @RequestBody MaterialMovimentacao materialmovimentacao, HttpServletResponse response) {
+	public ResponseEntity<MaterialMovimentacao> criar(@Valid @RequestBody MaterialMovimentacao materialmovimentacao) {
 		 MaterialMovimentacao materialmovimentacaoSalva = materialmovimentacaoService.salvar(materialmovimentacao);
 		return ResponseEntity.status(HttpStatus.CREATED).body(materialmovimentacaoSalva);
 	}
@@ -44,7 +43,7 @@ public class MaterialMovimentacaoResource {
 	}
 
 	@PutMapping("/{codigo}")
-	public ResponseEntity<MaterialMovimentacao> atualizar(@PathVariable Long codigo, @Validated @RequestBody MaterialMovimentacao materialmovimentacao) {
+	public ResponseEntity<MaterialMovimentacao> atualizar(@PathVariable Long codigo, @Valid @RequestBody MaterialMovimentacao materialmovimentacao) {
 		MaterialMovimentacao materialmovimentacaoSalva = materialmovimentacaoService.atualizar(codigo, materialmovimentacao);
 		return ResponseEntity.ok(materialmovimentacaoSalva);
 	}
