@@ -77,7 +77,7 @@ public class OrdemServicoAnexosResource {
 	}
 	
 	@ApiOperation(value = "Fazer download arquivo")
-	@GetMapping("/download/{idenAdiantamentoArquivo}")
+	@GetMapping("/download/{ordemServicoAnexoId}")
 	public ResponseEntity<Resource> downloadArquivo(@PathVariable Long ordemServicoAnexoId) {
 		OrdemServicoAnexos arquivo = ordemservicoanexosService.obterDownloadArquivo(ordemServicoAnexoId);
 		return ResponseEntity.ok()
