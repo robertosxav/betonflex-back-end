@@ -81,7 +81,7 @@ public class OrdemServicoResource {
 		return ordemservicoService.listarTodasOrdemServicosCliente(clienteId, pageable);
 	}
 	
-	@ApiOperation(value = "Fazer upload do arquivo")
+	//@ApiOperation(value = "Fazer upload do arquivo")
 	@PostMapping("/upload/{ordemServicoId}")
 	public ResponseEntity<String> uploadArquivos(@PathVariable Long ordemServicoId, @RequestParam("file") MultipartFile[] arquivos){
 		ordemservicoService.fazerUploadArquivo(ordemServicoId, arquivos);
