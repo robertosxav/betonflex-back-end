@@ -84,7 +84,7 @@ public class OrdemServicoResource {
 	}
 	
 	@ApiOperation(value = "Fazer upload do arquivo")
-	@PutMapping("/upload/{ordemServicoId}")
+	@PostMapping("/upload/{ordemServicoId}")
 	public ResponseEntity<String> uploadArquivos(@PathVariable Long ordemServicoId, @RequestParam("file") MultipartFile[] arquivos){
 		ordemservicoService.fazerUploadArquivo(ordemServicoId, arquivos);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Envio de arquivo realizado com sucesso");
