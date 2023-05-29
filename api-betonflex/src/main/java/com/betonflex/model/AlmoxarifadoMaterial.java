@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 import com.betonflex.model.enuns.StatusMatAlmoxaridoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -30,13 +32,13 @@ public class AlmoxarifadoMaterial implements Serializable{
 	@Column(name = "almoxarifado_material_id")
 	private Long almoxarifadoMaterialId;
 
-
-	@ManyToOne(cascade = CascadeType.ALL)  
+	//@JsonProperty(access = Access.WRITE_ONLY)
+	@ManyToOne()  
 	@JoinColumn(name = "almoxarifado_id")
 	private Almoxarifado almoxarifado;
 
-
-	@ManyToOne(cascade = CascadeType.ALL) 
+	//@JsonProperty(access = Access.WRITE_ONLY)
+	@ManyToOne() 
 	@JoinColumn(name = "material_id")
 	private Material material;
 	
