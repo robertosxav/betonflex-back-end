@@ -5,10 +5,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.betonflex.model.enuns.StatusMatAlmoxaridoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,10 +42,12 @@ public class OrdemServicoMaterial implements Serializable{
 	@Column(name = "ordem_servico_material_data")
 	private LocalDate ordemServicoMaterialData;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "ordem_servico_material_status")
-	private String ordemServicoMaterialStatus;
+	private StatusMatAlmoxaridoEnum ordemServicoMaterialStatus;
 
-	@Column(name = "funcionario_id")
+	@ManyToOne()
+	@JoinColumn(name = "funcionario_id",referencedColumnName = "funcionario_id")
 	private Funcionario funcionario;
 
 	@Column(name = "ordem_servico_material_valor")
@@ -86,13 +91,14 @@ public class OrdemServicoMaterial implements Serializable{
 		this.ordemServicoMaterialData = ordemServicoMaterialData;
 	}
 
-	public String getOrdemServicoMaterialStatus() {
+	public StatusMatAlmoxaridoEnum getOrdemServicoMaterialStatus() {
 		return ordemServicoMaterialStatus;
 	}
 
-	public void setOrdemServicoMaterialStatus(String ordemServicoMaterialStatus) {
+	public void setOrdemServicoMaterialStatus(StatusMatAlmoxaridoEnum ordemServicoMaterialStatus) {
 		this.ordemServicoMaterialStatus = ordemServicoMaterialStatus;
 	}
+
 
 	public Funcionario getFuncionario() {
 		return funcionario;
