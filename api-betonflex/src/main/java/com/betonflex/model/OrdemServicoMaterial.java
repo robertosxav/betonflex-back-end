@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,10 +26,12 @@ public class OrdemServicoMaterial implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ordem_servico_material_id")
 	private Long ordemServicoMaterialId;
-
+	
+	@ManyToOne()
 	@JoinColumn(name = "almoxarifado_material_id",referencedColumnName = "almoxarifado_material_id")
 	private AlmoxarifadoMaterial almoxarifadoMaterial;
 
+	@ManyToOne()
 	@JoinColumn(name = "ordem_servico_id",referencedColumnName = "ordem_servico_id")
 	private OrdemServico ordemServico;
 

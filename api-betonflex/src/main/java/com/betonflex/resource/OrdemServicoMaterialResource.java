@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.betonflex.model.OrdemServicoCliente;
 import com.betonflex.model.OrdemServicoMaterial;
 import com.betonflex.service.OrdemServicoMaterialService;
 
@@ -61,5 +62,11 @@ public class OrdemServicoMaterialResource {
 	public void remover(@PathVariable Long codigo) {
 		ordemservicomaterialService.remover(codigo);
 	}
+	
+	@GetMapping("/ordemServico/{ordemServicoId}")
+	public Page<OrdemServicoMaterial> buscarPeloOrdemServico(@PathVariable Long ordemServicoId,Pageable pageable){
+		return ordemservicomaterialService.buscarPeloOrdemServico(ordemServicoId,pageable);
+	}
+	
 
 }

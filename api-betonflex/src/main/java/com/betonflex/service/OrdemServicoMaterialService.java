@@ -71,4 +71,8 @@ public class OrdemServicoMaterialService {
 		ordemservicomaterialRepository.deleteById(codigo);
 	}
 
+	public Page<OrdemServicoMaterial> buscarPeloOrdemServico(Long ordemServicoId, Pageable pageable) {
+		return ordemservicomaterialRepository.buscarPelaOrdemServico(ordemServicoId, pageable);
+	}
+
 }
