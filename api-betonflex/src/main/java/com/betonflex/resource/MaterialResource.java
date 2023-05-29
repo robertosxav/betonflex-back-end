@@ -2,14 +2,11 @@ package com.betonflex.resource;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.Material;
 import com.betonflex.service.MaterialService;
 
-import io.swagger.annotations.ApiOperation;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/materiais")
@@ -32,71 +30,71 @@ public class MaterialResource {
 	@Autowired
 	private MaterialService materialService;
 
-	@ApiOperation(value = "Criar um material")
+	//@ApiOperation(value = "Criar um material")
 	@PostMapping
-	public ResponseEntity<Material> criar(@Validated @RequestBody Material material, HttpServletResponse response) {
+	public ResponseEntity<Material> criar(@Valid @RequestBody Material material, HttpServletResponse response) {
 	    Material materialSalva = materialService.salvar(material);
 		return ResponseEntity.status(HttpStatus.CREATED).body(materialSalva);
 	}
 
-	@ApiOperation(value = "Buscar um material pelo código")
+	//@ApiOperation(value = "Buscar um material pelo código")
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Material> buscarPeloCodigo(@PathVariable Long codigo) {
 		Material material = materialService.buscarPeloCodigo(codigo);
 		return ResponseEntity.ok(material);
 	}
 
-	@ApiOperation(value = "Atualizar um material")
+	//@ApiOperation(value = "Atualizar um material")
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Material> atualizar(@PathVariable Long codigo, @Validated @RequestBody Material material) {
+	public ResponseEntity<Material> atualizar(@PathVariable Long codigo, @Valid @RequestBody Material material) {
 		Material materialSalva = materialService.atualizar(codigo, material);
 		return ResponseEntity.ok(materialSalva);
 	}
 
-	@ApiOperation(value = "Pesquisar todos materiais, resposta paginada")
+	//@ApiOperation(value = "Pesquisar todos materiais, resposta paginada")
 	@GetMapping
 	public Page<Material> pesquisar(Pageable pageable) {
 		return materialService.pesquisar(pageable);
 	}
 
-	@ApiOperation(value = "Pesquisar todos materiais")
+	//@ApiOperation(value = "Pesquisar todos materiais")
 	@GetMapping("/all")
 	public List<Material> pesquisar() {
 		return materialService.listarTodos();
 	}
 
-	@ApiOperation(value = "Pesquisar todos materiais ativos")
+	//@ApiOperation(value = "Pesquisar todos materiais ativos")
 	@GetMapping("/ativos")
 	public List<Material> listarTodosAtivos() {
 		return materialService.listarTodosAtivos();
 	}
 	
-	@ApiOperation(value = "Pesquisar todos materiais ativos, resposta paginada")
+	//@ApiOperation(value = "Pesquisar todos materiais ativos, resposta paginada")
 	@GetMapping("/ativos/paginado")
 	public Page<Material> listarTodosAtivo(Pageable pageable) {
 		return materialService.listarTodosAtivos(pageable);
 	}
 	
-	@ApiOperation(value = "Pesquisar materiais passando um parametro de busca, resposta paginada")
+	//@ApiOperation(value = "Pesquisar materiais passando um parametro de busca, resposta paginada")
 	@GetMapping("/buscanegenerica")
 	public Page<Material> buscaGenerica(@RequestParam String pesquisa, Pageable pageable) {
 		return materialService.buscaGenerica(pesquisa, pageable);
 	}
 	
-	@ApiOperation(value = "Excluir um material (exclusão lógica)")
+	//@ApiOperation(value = "Excluir um material (exclusão lógica)")
 	@DeleteMapping("/{codigo}")
 	public ResponseEntity<String> remover(@PathVariable Long codigo) {
 		materialService.remover(codigo);
 		return ResponseEntity.status(HttpStatus.OK).body("Registro deletado com sucesso");
 	}
 	
-	@ApiOperation(value = "Pesquisar todos materiais ativos de um almoxarifado")
+	//@ApiOperation(value = "Pesquisar todos materiais ativos de um almoxarifado")
 	@GetMapping("/almoxarifado/{almoxarifadoId}")
 	public Page<Material> listarTodosMateriasAlmoxarifado(@PathVariable Long almoxarifadoId, Pageable pageable) {
 		return materialService.listarTodosMateriasAlmoxarifado(almoxarifadoId, pageable);
 	}
 	
-	@ApiOperation(value = "Pesquisar materiais que não pertencem a  um almoxarifado")
+	//@ApiOperation(value = "Pesquisar materiais que não pertencem a  um almoxarifado")
 	@GetMapping("/matriaisout/almoxarifado/{almoxarifadoId}")
 	public List<Material> listarTodosMateriasQueNaPertencemAlmoxarifado(@PathVariable Long almoxarifadoId) {
 		return materialService.listarTodosMateriasQueNaPertencemAlmoxarifado(almoxarifadoId);

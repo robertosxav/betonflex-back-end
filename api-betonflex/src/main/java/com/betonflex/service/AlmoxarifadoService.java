@@ -2,8 +2,6 @@ package com.betonflex.service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,9 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
 import com.betonflex.model.Almoxarifado;
-import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.model.Material;
 import com.betonflex.repository.AlmoxarifadoRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class AlmoxarifadoService {

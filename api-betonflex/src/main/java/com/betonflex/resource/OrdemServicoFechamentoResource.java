@@ -2,14 +2,11 @@ package com.betonflex.resource;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.OrdemServicoFechamento;
 import com.betonflex.service.OrdemServicoFechamentoService;
 
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/ordemservicofechamentos")
 public class OrdemServicoFechamentoResource {
@@ -31,7 +31,7 @@ public class OrdemServicoFechamentoResource {
 	private OrdemServicoFechamentoService ordemservicofechamentoService;
 
 	@PostMapping
-	public ResponseEntity<OrdemServicoFechamento> criar(@Validated @RequestBody OrdemServicoFechamento ordemservicofechamento, HttpServletResponse response) {
+	public ResponseEntity<OrdemServicoFechamento> criar(@Valid @RequestBody OrdemServicoFechamento ordemservicofechamento, HttpServletResponse response) {
 		 OrdemServicoFechamento ordemservicofechamentoSalva = ordemservicofechamentoService.salvar(ordemservicofechamento);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ordemservicofechamentoSalva);
 	}
@@ -43,7 +43,7 @@ public class OrdemServicoFechamentoResource {
 	}
 
 	@PutMapping("/{codigo}")
-	public ResponseEntity<OrdemServicoFechamento> atualizar(@PathVariable Long codigo, @Validated @RequestBody OrdemServicoFechamento ordemservicofechamento) {
+	public ResponseEntity<OrdemServicoFechamento> atualizar(@PathVariable Long codigo, @Valid @RequestBody OrdemServicoFechamento ordemservicofechamento) {
 		OrdemServicoFechamento ordemservicofechamentoSalva = ordemservicofechamentoService.atualizar(codigo, ordemservicofechamento);
 		return ResponseEntity.ok(ordemservicofechamentoSalva);
 	}

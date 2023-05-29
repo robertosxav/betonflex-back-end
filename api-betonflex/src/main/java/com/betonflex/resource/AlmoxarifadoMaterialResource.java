@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.service.AlmoxarifadoMaterialService;
 
-import io.swagger.annotations.ApiOperation;
+import jakarta.validation.Valid;
+
 
 
 @RestController
@@ -29,28 +29,28 @@ public class AlmoxarifadoMaterialResource {
 	@Autowired
 	private AlmoxarifadoMaterialService almoxarifadomaterialService;
 
-	@ApiOperation(value = "Excluir relacionamento entre material e almoxarifado(exclusão fisica)")
+	////@ApiOperation(value = "Excluir relacionamento entre material e almoxarifado(exclusão fisica)")
 	@DeleteMapping("/{codigo}")
 	public ResponseEntity<String> remover(@PathVariable Long codigo) {
 		almoxarifadomaterialService.remover(codigo);
 		return ResponseEntity.status(HttpStatus.OK).body("Registro deletado com sucesso");
 	}
 	
-	@ApiOperation(value = "Lista de objetos do tipo AlmoxarifadoMaterial passando o almoxarifadoId")
+	////@ApiOperation(value = "Lista de objetos do tipo AlmoxarifadoMaterial passando o almoxarifadoId")
 	@GetMapping("/almoxarifado/{almoxarifadoId}")
 	public Page<AlmoxarifadoMaterial> buscarPeloAlmoxarifado(@PathVariable Long almoxarifadoId,Pageable pageable){
 		return almoxarifadomaterialService.buscarPeloAlmoxarifado(almoxarifadoId,pageable);
 	}
 	
-	@ApiOperation(value = "Lista de objetos do tipo AlmoxarifadoMaterial passando o almoxarifadoId")
+	////@ApiOperation(value = "Lista de objetos do tipo AlmoxarifadoMaterial passando o almoxarifadoId")
 	@GetMapping("/almoxarifado/list/{almoxarifadoId}")
 	public List<AlmoxarifadoMaterial> buscarPeloAlmoxarifadoList(@PathVariable Long almoxarifadoId){
 		return almoxarifadomaterialService.buscarPeloAlmoxarifado(almoxarifadoId);
 	}
 	
-	@ApiOperation(value = "Criar uma linha tabela nxn de almoxarifadoMaterial")
+	////@ApiOperation(value = "Criar uma linha tabela nxn de almoxarifadoMaterial")
 	@PostMapping
-	public ResponseEntity<AlmoxarifadoMaterial> criar(@Validated @RequestBody AlmoxarifadoMaterial almoxarifadoMaterial) {
+	public ResponseEntity<AlmoxarifadoMaterial> criar(@Valid @RequestBody AlmoxarifadoMaterial almoxarifadoMaterial) {
 		AlmoxarifadoMaterial almoxarifadoMaterialSalvo = almoxarifadomaterialService.salvar(almoxarifadoMaterial);
 		return ResponseEntity.status(HttpStatus.CREATED).body(almoxarifadoMaterialSalvo);
 	}

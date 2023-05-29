@@ -1,7 +1,5 @@
 package com.betonflex.service;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +10,8 @@ import com.betonflex.model.Cliente;
 import com.betonflex.model.OrdemServico;
 import com.betonflex.model.OrdemServicoCliente;
 import com.betonflex.repository.OrdemServicoClienteRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class OrdemServicoClienteService {
