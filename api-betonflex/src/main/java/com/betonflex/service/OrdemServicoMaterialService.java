@@ -13,7 +13,6 @@ import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.model.Funcionario;
 import com.betonflex.model.OrdemServico;
 import com.betonflex.model.OrdemServicoMaterial;
-import com.betonflex.model.enuns.StatusMatAlmoxaridoEnum;
 import com.betonflex.repository.OrdemServicoMaterialRepository;
 
 @Service
@@ -33,6 +32,7 @@ public class OrdemServicoMaterialService {
 	
 	public OrdemServicoMaterial salvar(OrdemServicoMaterial ordemservicomaterial) {
 		validar(ordemservicomaterial);
+		ordemservicomaterial.ativar();
 		return ordemservicomaterialRepository.save(ordemservicomaterial);
 	}
 
@@ -46,7 +46,6 @@ public class OrdemServicoMaterialService {
 		Funcionario funcionario=funcionarioService.buscarPeloCodigo(ordemservicomaterial.getFuncionario().getFuncionarioId());
 		ordemservicomaterial.setFuncionario(funcionario);
 		
-		ordemservicomaterial.setOrdemServicoMaterialStatus(StatusMatAlmoxaridoEnum.NOVO);
 	}
 
 	public OrdemServicoMaterial buscarPeloCodigo(Long codigo) {

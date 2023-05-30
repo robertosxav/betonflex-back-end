@@ -132,6 +132,11 @@ public class OrdemServicoMaterial implements Serializable{
 		this.ordem_servico_material_qtd = ordem_servico_material_qtd;
 	}
 
+	public void ativar() {
+		this.ordemServicoMaterialData = LocalDate.now();
+		this.ordemServicoMaterialStatus = StatusMatAlmoxaridoEnum.NOVO;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(ordemServicoMaterialId);
