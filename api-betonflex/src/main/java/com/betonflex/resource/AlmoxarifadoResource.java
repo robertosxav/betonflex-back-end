@@ -21,7 +21,8 @@ import com.betonflex.model.Almoxarifado;
 import com.betonflex.model.Material;
 import com.betonflex.service.AlmoxarifadoService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+
 
 
 @RestController

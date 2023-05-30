@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.TipoServico;
 import com.betonflex.service.TipoServicoService;
 
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/tiposervicos")
@@ -32,7 +31,7 @@ public class TipoServicoResource {
 
 	//@ApiOperation(value = "Criar um tipo de serviço")
 	@PostMapping
-	public ResponseEntity<TipoServico> criar(@Valid @RequestBody TipoServico tiposervico, HttpServletResponse response) {
+	public ResponseEntity<TipoServico> criar(@Valid @RequestBody TipoServico tiposervico) {
 		 TipoServico tiposervicoSalva = tiposervicoService.salvar(tiposervico);
 		return ResponseEntity.status(HttpStatus.CREATED).body(tiposervicoSalva);
 	}

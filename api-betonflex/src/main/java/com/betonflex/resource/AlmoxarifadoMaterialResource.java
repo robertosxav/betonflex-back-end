@@ -2,6 +2,8 @@ package com.betonflex.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.service.AlmoxarifadoMaterialService;
-
-import jakarta.validation.Valid;
-
-
 
 @RestController
 @RequestMapping("/almoxarifadomaterials")

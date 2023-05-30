@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.Funcionario;
 import com.betonflex.service.FuncionarioService;
 
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/funcionarios")
@@ -32,7 +32,7 @@ public class FuncionarioResource {
 
 	//@ApiOperation(value = "Criar um funcionario")
 	@PostMapping
-	public ResponseEntity<Funcionario> criar(@Valid @RequestBody Funcionario funcionario, HttpServletResponse response) {
+	public ResponseEntity<Funcionario> criar(@Valid @RequestBody Funcionario funcionario) {
 		 Funcionario funcionarioSalva = funcionarioService.salvar(funcionario);
 		return ResponseEntity.status(HttpStatus.CREATED).body(funcionarioSalva);
 	}

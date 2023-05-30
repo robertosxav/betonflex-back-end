@@ -20,8 +20,8 @@ import com.betonflex.model.Cliente;
 import com.betonflex.model.OrdemServico;
 import com.betonflex.service.ClienteService;
 
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/clientes")
@@ -32,7 +32,7 @@ public class ClienteResource {
 
 	//@ApiOperation(value = "Criar um cliente")
 	@PostMapping
-	public ResponseEntity<Cliente> criar(@Valid @RequestBody Cliente cliente, HttpServletResponse response) {
+	public ResponseEntity<Cliente> criar(@Valid @RequestBody Cliente cliente) {
 		Cliente clienteSalva = clienteService.salvar(cliente);
 		return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalva);
 	}

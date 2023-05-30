@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.Material;
 import com.betonflex.service.MaterialService;
 
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/materiais")
@@ -32,7 +32,7 @@ public class MaterialResource {
 
 	//@ApiOperation(value = "Criar um material")
 	@PostMapping
-	public ResponseEntity<Material> criar(@Valid @RequestBody Material material, HttpServletResponse response) {
+	public ResponseEntity<Material> criar(@Valid @RequestBody Material material) {
 	    Material materialSalva = materialService.salvar(material);
 		return ResponseEntity.status(HttpStatus.CREATED).body(materialSalva);
 	}

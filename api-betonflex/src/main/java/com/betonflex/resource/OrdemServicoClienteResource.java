@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.OrdemServicoCliente;
 import com.betonflex.service.OrdemServicoClienteService;
 
-import jakarta.validation.Valid;
-
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/ordemservicoclientes")

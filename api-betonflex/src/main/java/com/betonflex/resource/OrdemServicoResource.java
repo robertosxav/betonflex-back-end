@@ -19,9 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.betonflex.model.OrdemServico;
 import com.betonflex.service.OrdemServicoService;
-
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/ordemservicos")
@@ -32,7 +30,7 @@ public class OrdemServicoResource {
 
 	//@ApiOperation(value = "Criar uma ordem de serviço")
 	@PostMapping
-	public ResponseEntity<OrdemServico> criar(@Valid @RequestBody OrdemServico ordemservico, HttpServletResponse response) {
+	public ResponseEntity<OrdemServico> criar(@Valid @RequestBody OrdemServico ordemservico) {
 		 OrdemServico ordemservicoSalva = ordemservicoService.salvar(ordemservico);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ordemservicoSalva);
 	}

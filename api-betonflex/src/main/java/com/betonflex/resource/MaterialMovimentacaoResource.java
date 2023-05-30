@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.MaterialMovimentacao;
 import com.betonflex.service.MaterialMovimentacaoService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/materialmovimentacaos")

@@ -11,7 +11,7 @@ import com.betonflex.model.OrdemServico;
 import com.betonflex.model.OrdemServicoCliente;
 import com.betonflex.repository.OrdemServicoClienteRepository;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 
 @Service
 public class OrdemServicoClienteService {

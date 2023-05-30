@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.betonflex.model.OrdemServicoFechamento;
 import com.betonflex.service.OrdemServicoFechamentoService;
 
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/ordemservicofechamentos")
@@ -31,7 +30,7 @@ public class OrdemServicoFechamentoResource {
 	private OrdemServicoFechamentoService ordemservicofechamentoService;
 
 	@PostMapping
-	public ResponseEntity<OrdemServicoFechamento> criar(@Valid @RequestBody OrdemServicoFechamento ordemservicofechamento, HttpServletResponse response) {
+	public ResponseEntity<OrdemServicoFechamento> criar(@Valid @RequestBody OrdemServicoFechamento ordemservicofechamento) {
 		 OrdemServicoFechamento ordemservicofechamentoSalva = ordemservicofechamentoService.salvar(ordemservicofechamento);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ordemservicofechamentoSalva);
 	}
