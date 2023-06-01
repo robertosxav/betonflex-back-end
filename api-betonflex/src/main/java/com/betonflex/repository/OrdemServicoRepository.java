@@ -24,7 +24,8 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 			+ "where c.clienteId  = :clienteId")
 	Page<OrdemServico> listarTodasOrdemServicosCliente(Long clienteId, Pageable pageable);
 
-	@Query("SELECT os from OrdemServico os order by ordemServicoId desc")
+	@Query(nativeQuery = true, value = "select os.* from ordem_servico os order by ordem_servico_id limit 10")
+	//@Query("SELECT os from OrdemServico os order by ordemServicoId desc limit 10")
 	List<OrdemServico> listarUltimasOrdemServiços(); 
 } 
 // limit 10
