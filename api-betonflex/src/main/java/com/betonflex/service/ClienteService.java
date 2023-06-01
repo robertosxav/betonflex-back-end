@@ -9,12 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.betonflex.exceptions.BetonflexException;
-import com.betonflex.model.Almoxarifado;
-import com.betonflex.model.AlmoxarifadoMaterial;
 import com.betonflex.model.Cliente;
-import com.betonflex.model.Material;
 import com.betonflex.model.OrdemServico;
-import com.betonflex.model.OrdemServicoCliente;
 import com.betonflex.repository.ClienteRepository;
 
 @Service
@@ -80,6 +76,20 @@ public class ClienteService {
 	public List<Cliente> buscarTodosClientesNaoEstaoNaOrdemServicoOrdemServico(Long ordemServicoId) {
 		return clienteRepository.buscarTodosClientesNaoEstaoNaOrdemServicoOrdemServico(ordemServicoId);
 	
+	}
+
+	public void remover(Long codigo) {
+		Cliente clienteSalvo = buscarPeloCodigo(codigo);
+		clienteSalvo.inativar();
+		clienteRepository.save(clienteSalvo);
+	}
+
+	public List<Cliente> listarTodosAtivos() {
+		return clienteRepository.listarTodosAtivos();
+	}
+
+	public Page<Cliente> listarTodosAtivos(Pageable pageable) {
+		return clienteRepository.listarTodosAtivos(pageable);
 	}
 
 }

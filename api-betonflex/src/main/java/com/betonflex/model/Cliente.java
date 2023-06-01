@@ -31,6 +31,9 @@ public class Cliente implements Serializable{
 
 	@Column(name = "cliente_documento")
 	private String clienteDocumento;
+	
+	@Column(name = "cliente_ativo")
+	private Boolean clienteAtivo;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "cliente_createat")
@@ -77,8 +80,17 @@ public class Cliente implements Serializable{
 		this.listaOrdensServico = listaOrdensServico;
 	}*/
 
+	public Boolean getClienteAtivo() {
+		return clienteAtivo;
+	}
+
 	public void ativar() {
 		this.clienteCreateat = LocalDate.now();
+		this.clienteAtivo = true;
+	}
+	
+	public void inativar() {
+		this.clienteAtivo = false;
 	}
 	
 	@Override

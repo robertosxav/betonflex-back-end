@@ -8,12 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.betonflex.model.Cliente;
+import com.betonflex.model.Material;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
 	@Query("SELECT c from Cliente c "
-			+ "where UPPER(c.clienteNome) like concat('%',:pesquisa,'%')")
+			+ "where UPPER(c.clienteNome) like concat('%',:pesquisa,'%') and clienteAtivo = true")
 	Page<Cliente> buscaGenerica(String pesquisa,Pageable pageable);
 
 	@Query(nativeQuery = true, value = " SELECT c.* from cliente c "
@@ -22,6 +23,12 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 			+ " INNER JOIN cliente c2 ON c2.cliente_id = osc.cliente_id "
 			+ "	where os.ordem_servico_id = :ordemServicoId "
 			+ ")")
-	List<Cliente> buscarTodosClientesNaoEstaoNaOrdemServicoOrdemServico(Long ordemServicoId); 
+	List<Cliente> buscarTodosClientesNaoEstaoNaOrdemServicoOrdemServico(Long ordemServicoId);
+
+	@Query("SELECT c from Cliente c where clienteAtivo = true")
+	List<Cliente> listarTodosAtivos();
+
+	@Query("SELECT c from Cliente c where clienteAtivo = true")
+	Page<Cliente> listarTodosAtivos(Pageable pageable); 
 	
 } 
